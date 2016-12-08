@@ -27,8 +27,6 @@ build/Release
 node_modules
 
 # config
-config/*.json
-!config/default.json
-!config/test.json
+config/production.json
 
 .export
