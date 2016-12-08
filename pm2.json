@@ -2,14 +2,6 @@
   "apps": [
     {
       "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "api",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    {
-      "exec_mode": "fork_mode",
       "script": "./watchers/entries.js",
       "name": "entries:ncaam",
       "env": {

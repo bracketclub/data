@@ -1,19 +1,15 @@
 'use strict';
 
 const EntryWatcher = require('@lukekarrys/entry-watcher');
-const _ = require('lodash');
 const config = require('getconfig');
 
 const onSave = require('./lib/saveEntry');
 const createLogger = require('./lib/logger');
-const sportYear = require('./lib/sportYear');
+const { sport, year, id } = require('./lib/sportYear');
 
-const sport = sportYear.sport;
-const year = sportYear.year;
+const logger = createLogger(`entries:${id}`);
 
-const logger = createLogger(`entries:${sportYear.id}`);
-
-const watcher = new EntryWatcher(_.extend({
+const watcher = new EntryWatcher(Object.assign({
   logger,
   onSave: onSave({logger, sport, year}),
   type: 'tweet',

@@ -1,7 +1,6 @@
 'use strict';
 
 const ScoreWatcher = require('@lukekarrys/score-watcher');
-const _ = require('lodash');
 const config = require('getconfig');
 const bracketData = require('bracket-data');
 
@@ -9,14 +8,11 @@ const latestBracket = require('./lib/latestBracket');
 const saveMaster = require('./lib/saveMaster');
 const pgConnect = require('./lib/pgConnect');
 const createLogger = require('./lib/logger');
-const sportYear = require('./lib/sportYear');
-
-const sport = sportYear.sport;
-const year = sportYear.year;
+const { sport, year, id } = require('./lib/sportYear');
 
 const tybConfig = config.tweetyourbracket;
 const scoreConfig = config.scores[sport];
-const logger = createLogger(`scores:${sportYear.id}`);
+const logger = createLogger(`scores:${id}`);
 const emptyBracket = bracketData({sport, year}).constants.EMPTY;
 
 pgConnect(logger, (client, done) => {
@@ -26,7 +22,7 @@ pgConnect(logger, (client, done) => {
       return;
     }
 
-    new ScoreWatcher(_.extend({
+    new ScoreWatcher(Object.assign({
       master,
       logger,
       onSave: saveMaster({logger, sport, year}),
