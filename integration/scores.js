@@ -4,15 +4,13 @@ const _ = require('lodash');
 const data = require('bracket-data');
 const Updater = require('bracket-updater');
 
-const createLogger = require('../lib/logger');
-const createSaveMaster = require('../lib/saveMaster');
-const {sport, year, id} = require('../lib/sportYear');
+const {INITIAL, INTERVAL} = require('./interval');
+const createLogger = require('../watchers/lib/logger');
+const createSaveMaster = require('../watchers/lib/saveMaster');
+const {sport, year, id} = require('../watchers/lib/sportYear');
 
 const logger = createLogger(`scores:${id}`);
 const saveMaster = createSaveMaster({logger, sport, year});
-
-const INITIAL = 5000;
-const INTERVAL = 5000;
 
 const {
   BEST_OF_RANGE: bestOf,

@@ -2,16 +2,14 @@
 
 const Generator = require('bracket-generator');
 
-const createLogger = require('../lib/logger');
-const createSaveEntry = require('../lib/saveEntry');
-const {id, sport, year} = require('../lib/sportYear');
+const {INITIAL, INTERVAL} = require('./interval');
+const createLogger = require('../watchers/lib/logger');
+const createSaveEntry = require('../watchers/lib/saveEntry');
+const {id, sport, year} = require('../watchers/lib/sportYear');
 
 const logger = createLogger(`users:${id}`);
 const saveEntry = createSaveEntry({logger, sport, year});
 const bracket = new Generator({sport, year});
-
-const INITIAL = 5000;
-const INTERVAL = 5000;
 
 const numbers = () => Math.random().toString().slice(2);
 
