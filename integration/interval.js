@@ -3,6 +3,6 @@
 'use strict';
 
 module.exports = {
-  INITIAL: 20000,
-  INTERVAL: 10000
+  INITIAL: 2000,
+  INTERVAL: 5000
 };

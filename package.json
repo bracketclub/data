@@ -35,8 +35,7 @@
     "scores": "^3.3.0"
   },
   "engines": {
-    "node": "^5.4.0",
-    "npm": "^3.3.12"
+    "node": "^6"
   },
   "homepage": "https://bitbucket.org/lukekarrys/api",
   "keywords": [
@@ -61,10 +60,9 @@
     "db:create": "psql -d postgres -c \"CREATE ROLE tweetyourbracket WITH PASSWORD 'password' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN\" && createdb tweetyourbracket -O tweetyourbracket",
     "db:drop": "dropdb --if-exists tweetyourbracket && psql -d postgres -c 'DROP ROLE IF EXISTS tweetyourbracket'",
     "db:dump": "pg_dump tweetyourbracket > sql/tweetyourbracket.sql",
-    "db:seed": "psql -d tweetyourbracket -f sql/heroku_dump.sql",
+    "db:seed": "psql -d tweetyourbracket -f sql/tweetyourbracket.sql",
     "export:dir": "rimraf .export/ && node bin/export.js",
     "lint": "eslint .",
-    "local": "nodemon index --slow",
     "pm2:delete": "pm2 delete pm2.json",
     "pm2:logs": "pm2 logs pm2.json",
     "pm2:restart": "pm2 restart pm2.json",
@@ -74,7 +72,6 @@
     "prod:update:women": "NODE_ENV=production ./bin/insertBracket.js --year=`date +%Y` --sport=ncaaw --date `date +%Y%m%d`",
     "start:entries": "node watchers/entries",
     "start:scores": "node watchers/scores",
-    "test:clean:db": "dropdb --if-exists tweetyourbracket-test && createdb tweetyourbracket-test && psql -d tweetyourbracket-test -f sql/test.sql",
     "validate": "npm ls"
   }
 }

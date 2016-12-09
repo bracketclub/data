@@ -23,6 +23,8 @@ const updater = new Updater({sport, year});
 let previous = empty;
 let interval = null;
 
+logger.log(`Starting scores:${id} in ${INITIAL}`);
+
 setTimeout(() => (interval = setInterval(() => {
   const next = updater.next({currentMaster: previous}, {winner: true, order: false});
 

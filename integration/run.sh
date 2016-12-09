@@ -1,40 +1,33 @@
 #!/usr/bin/env bash
 
-# npm run test:clean:db
-
 export NODE_ENV="test"
+
+echo "Clearing test DB"
+dropdb --if-exists tweetyourbracket-test
+createdb tweetyourbracket-test
+psql -d tweetyourbracket-test -f sql/test.sql 2>&1 >/dev/null
 
 PIDS=()
 YEAR="2016"
 SPORTS=("ncaam" "ncaaw" "nba" "nhl")
+TYPES=("entries" "scores" "users")
 
 handler()
 {
+  echo "Exiting"
   for PID in "${PIDS[@]}"
   do
-    echo "Kill ${PID}"
+    echo "Stopping ${PID}"
     kill -s SIGINT $PID
   done
 }
 
 trap handler EXIT
 
-for SPORT in "${SPORTS[@]}"
-do
-  echo "Start entries ${SPORT} ${YEAR}"
-  node integration/entries --year=${YEAR} --sport=${SPORT} &
+for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
+  echo "Starting ${TYPE} ${SPORT} ${YEAR}"
+  node integration/${TYPE} --year=${YEAR} --sport=${SPORT} &
   PIDS+=($!)
+done; done
 
-  echo "Start scores ${SPORT} ${YEAR}"
-  node integration/scores --year=${YEAR} --sport=${SPORT} &
-  PIDS+=($!)
-
-  echo "Start users ${SPORT} ${YEAR}"
-  node integration/users --year=${YEAR} --sport=${SPORT} &
-  PIDS+=($!)
-done
-
-while true
-do
-  sleep 60
-done
+while true; do sleep 60; done
