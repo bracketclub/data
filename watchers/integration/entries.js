@@ -3,13 +3,10 @@
 const Generator = require('bracket-generator');
 
 const createLogger = require('../lib/logger');
-const sportYear = require('../lib/sportYear');
 const createSaveEntry = require('../lib/saveEntry');
+const {sport, year, id} = require('../lib/sportYear');
 
-const sport = sportYear.sport;
-const year = sportYear.year;
-
-const logger = createLogger(`entries:${sportYear.id}`);
+const logger = createLogger(`entries:${id}`);
 const saveEntry = createSaveEntry({logger, sport, year});
 const bracket = new Generator({sport, year});
 

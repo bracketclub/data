@@ -1,8 +1,0 @@
-{
-  "isDev": false,
-
-  "postgres": {
-    "connectionString": "postgres://lukekarrys@localhost/tweetyourbracket-test"
-  }
-}
-

@@ -20,21 +20,19 @@
     "getconfig": "^3.0.0",
     "lodash": "^4.17.2",
     "pg": "^6.1.0",
-    "scores": "^3.3.0",
-    "twit": "^2.2.5",
     "yargs": "^6.4.0"
   },
   "devDependencies": {
     "@lukekarrys/eslint-config": "^2.1.11",
     "bracket-generator": "^3.1.0",
-    "bracket-validator": "^3.1.0",
     "eslint": "^3.11.1",
     "eslint-plugin-import": "^2.2.0",
     "git-validate": "^2.2.2",
     "mkdirp": "^0.5.1",
     "npm-run-all": "^3.1.1",
     "request": "^2.79.0",
-    "rimraf": "^2.5.4"
+    "rimraf": "^2.5.4",
+    "scores": "^3.3.0"
   },
   "engines": {
     "node": "^5.4.0",
@@ -64,7 +62,6 @@
     "db:drop": "dropdb --if-exists tweetyourbracket && psql -d postgres -c 'DROP ROLE IF EXISTS tweetyourbracket'",
     "db:dump": "pg_dump tweetyourbracket > sql/tweetyourbracket.sql",
     "db:seed": "psql -d tweetyourbracket -f sql/heroku_dump.sql",
-    "export": "npm-run-all --parallel start export:dir",
     "export:dir": "rimraf .export/ && node bin/export.js",
     "integration:entries": "node watchers/integration/entries --year=2016",
     "integration:entries:ncaam": "npm run integration:entries -- --sport=ncaam",
@@ -90,15 +87,14 @@
     "pm2:stop": "pm2 stop pm2.json",
     "prod:update:men": "NODE_ENV=production ./bin/insertBracket.js --year=`date +%Y` --sport=ncaam --date `date +%Y%m%d`",
     "prod:update:women": "NODE_ENV=production ./bin/insertBracket.js --year=`date +%Y` --sport=ncaaw --date `date +%Y%m%d`",
-    "start": "node index",
     "start:entries": "node watchers/entries",
     "start:scores": "node watchers/scores",
     "test": "npm run validate && npm run lint",
-    "test:all:integration": "NODE_ENV=integration npm-run-all test:db --parallel start integration:scores:ncaam integration:scores:ncaaw integration:scores:nba integration:scores:nhl integration:entries:ncaam integration:entries:ncaaw integration:entries:nba integration:entries:nhl integration:users:ncaam integration:users:ncaaw integration:users:nba integration:users:nhl",
+    "test:all:integration": "NODE_ENV=test npm-run-all test:db --parallel integration:scores:ncaam integration:scores:ncaaw integration:scores:nba integration:scores:nhl integration:entries:ncaam integration:entries:ncaaw integration:entries:nba integration:entries:nhl integration:users:ncaam integration:users:ncaaw integration:users:nba integration:users:nhl",
     "test:db": "dropdb --if-exists tweetyourbracket-test && createdb tweetyourbracket-test && psql -d tweetyourbracket-test -f sql/test.sql",
-    "test:entries:integration": "NODE_ENV=integration npm-run-all test:db --parallel start integration:entries:ncaam",
-    "test:scores:integration": "NODE_ENV=integration npm-run-all test:db --parallel start integration:scores:ncaam",
-    "test:users:integration": "NODE_ENV=integration npm-run-all test:db --parallel start integration:users:ncaam",
+    "test:entries:integration": "NODE_ENV=test npm-run-all test:db --parallel integration:entries:ncaam",
+    "test:scores:integration": "NODE_ENV=test npm-run-all test:db --parallel integration:scores:ncaam",
+    "test:users:integration": "NODE_ENV=test npm-run-all test:db --parallel integration:users:ncaam",
     "validate": "npm ls"
   }
 }
