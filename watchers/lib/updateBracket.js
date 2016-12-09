@@ -8,13 +8,10 @@ const Updater = require('bracket-updater');
 const onSaveMaster = require('./saveMaster');
 const createLogger = require('./logger');
 const latestBracket = require('./latestBracket');
-const sportYear = require('./sportYear');
-
-const sport = sportYear.sport;
-const year = sportYear.year;
+const {id, sport, year} = require('./sportYear');
 
 const scoreConfig = config.scores[sport];
-const logger = createLogger(`scores:${sportYear.id}`);
+const logger = createLogger(`scores:${id}`);
 const saveMaster = onSaveMaster({logger, sport, year});
 const updater = new Updater({sport, year});
 

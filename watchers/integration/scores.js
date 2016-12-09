@@ -5,13 +5,10 @@ const data = require('bracket-data');
 const Updater = require('bracket-updater');
 
 const createLogger = require('../lib/logger');
-const sportYear = require('../lib/sportYear');
 const createSaveMaster = require('../lib/saveMaster');
+const {sport, year, id} = require('../lib/sportYear');
 
-const sport = sportYear.sport;
-const year = sportYear.year;
-
-const logger = createLogger(`scores:${sportYear.id}`);
+const logger = createLogger(`scores:${id}`);
 const saveMaster = createSaveMaster({logger, sport, year});
 
 const INITIAL = 5000;
@@ -24,7 +21,6 @@ const {
 } = data({sport, year}).constants;
 
 const updater = new Updater({sport, year});
-// const roundLength = _.range(1, 7).reduce((a, i) => (a.push(a[i - 1] * 2), a), [1])
 
 let previous = empty;
 let interval = null;

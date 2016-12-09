@@ -8,7 +8,7 @@ const latestBracket = require('./lib/latestBracket');
 const saveMaster = require('./lib/saveMaster');
 const pgConnect = require('./lib/pgConnect');
 const createLogger = require('./lib/logger');
-const { sport, year, id } = require('./lib/sportYear');
+const {sport, year, id} = require('./lib/sportYear');
 
 const tybConfig = config.tweetyourbracket;
 const scoreConfig = config.scores[sport];
