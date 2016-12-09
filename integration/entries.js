@@ -15,6 +15,8 @@ const A = 65;
 const numbers = () => Math.random().toString().slice(2);
 const letters = () => numbers().split('').map((n) => String.fromCharCode(parseInt(n, 10) + A)).join('');
 
+logger.log(`Starting entries:${id} in ${INITIAL}`);
+
 setTimeout(() => setInterval(() => saveEntry({
   data_id: numbers(),
   user_id: numbers(),
