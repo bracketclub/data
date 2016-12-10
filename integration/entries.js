@@ -2,7 +2,7 @@
 
 const Generator = require('bracket-generator');
 
-const {INITIAL, INTERVAL} = require('./interval');
+const {INTERVAL} = require('./interval');
 const createLogger = require('../watchers/lib/logger');
 const createSaveEntry = require('../watchers/lib/saveEntry');
 const {sport, year, id} = require('../watchers/lib/sportYear');
@@ -15,9 +15,9 @@ const A = 65;
 const numbers = () => Math.random().toString().slice(2);
 const letters = () => numbers().split('').map((n) => String.fromCharCode(parseInt(n, 10) + A)).join('');
 
-logger.log(`Starting entries:${id} in ${INITIAL}`);
+logger.log(`Starting entries:${id}`);
 
-setTimeout(() => setInterval(() => saveEntry({
+setInterval(() => saveEntry({
   data_id: numbers(),
   user_id: numbers(),
   username: letters(),
@@ -25,4 +25,4 @@ setTimeout(() => setInterval(() => saveEntry({
   profile_pic: '',
   bracket: bracket.generate('random'),
   created: new Date().toJSON()
-}), INTERVAL), INITIAL);
+}), INTERVAL);

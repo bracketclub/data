@@ -18,14 +18,15 @@ handler()
   for PID in "${PIDS[@]}"
   do
     echo "Stopping ${PID}"
-    kill -s SIGINT $PID
+    kill -s SIGINT $PID 2>/dev/null
   done
 }
 
 trap handler EXIT
 
+echo "Start the server now"
+
 for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
-  echo "Starting ${TYPE} ${SPORT} ${YEAR}"
   node integration/${TYPE} --year=${YEAR} --sport=${SPORT} &
   PIDS+=($!)
 done; done
