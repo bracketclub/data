@@ -20,16 +20,16 @@
     "getconfig": "^3.0.0",
     "lodash": "^4.17.2",
     "pg": "^6.1.0",
-    "yargs": "^6.4.0"
+    "yargs": "^6.5.0"
   },
   "devDependencies": {
     "@lukekarrys/eslint-config": "^2.1.11",
     "bracket-generator": "^3.1.0",
-    "eslint": "^3.11.1",
+    "eslint": "^3.12.0",
     "eslint-plugin-import": "^2.2.0",
     "git-validate": "^2.2.2",
     "mkdirp": "^0.5.1",
-    "npm-run-all": "^3.1.1",
+    "npm-run-all": "^3.1.2",
     "request": "^2.79.0",
     "rimraf": "^2.5.4",
     "scores": "^3.3.0"
