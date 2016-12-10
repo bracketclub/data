@@ -4,7 +4,7 @@ const _ = require('lodash');
 const data = require('bracket-data');
 const Updater = require('bracket-updater');
 
-const {INITIAL, INTERVAL} = require('./interval');
+const {INTERVAL} = require('./interval');
 const createLogger = require('../watchers/lib/logger');
 const createSaveMaster = require('../watchers/lib/saveMaster');
 const {sport, year, id} = require('../watchers/lib/sportYear');
@@ -17,15 +17,13 @@ const {
   EMPTY: empty,
   UNPICKED_MATCH: unpickedChar
 } = data({sport, year}).constants;
-
 const updater = new Updater({sport, year});
 
+logger.log(`Starting scores:${id}`);
+
 let previous = empty;
-let interval = null;
 
-logger.log(`Starting scores:${id} in ${INITIAL}`);
-
-setTimeout(() => (interval = setInterval(() => {
+const interval = setInterval(() => {
   const next = updater.next({currentMaster: previous}, {winner: true, order: false});
 
   previous = updater.update({
@@ -41,4 +39,4 @@ setTimeout(() => (interval = setInterval(() => {
   if (previous.indexOf(unpickedChar) === -1) {
     clearInterval(interval);
   }
-}, INTERVAL)), INITIAL);
+}, INTERVAL);

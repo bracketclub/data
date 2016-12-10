@@ -72,6 +72,7 @@
     "prod:update:women": "NODE_ENV=production ./bin/insertBracket.js --year=`date +%Y` --sport=ncaaw --date `date +%Y%m%d`",
     "start:entries": "node watchers/entries",
     "start:scores": "node watchers/scores",
+    "test": "NODE_ENV=test ./integration/run.sh",
     "validate": "npm ls"
   }
 }
