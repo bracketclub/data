@@ -51,7 +51,7 @@
     "url": "git://bitbucket.org/lukekarrys/data.git"
   },
   "scripts": {
-    "integration": "NODE_ENV=test ./integration/run.sh",
+    "integration": "NODE_ENV=test ./bin/integration.sh",
     "lint": "eslint .",
     "pm2:config": "node bin/pm2-config",
     "pm2:delete": "pm2 delete pm2.json",
