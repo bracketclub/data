@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* eslint no-console:0 no-process-exit:0 */
-
 'use strict';
 
 const path = require('path');
@@ -11,57 +9,43 @@ const _ = require('lodash');
 const request = require('request');
 const config = require('getconfig');
 const mkdirp = require('mkdirp');
-
+const yargs = require('yargs');
 const pgConnect = require('../watchers/lib/pgConnect');
 const createLogger = require('../watchers/lib/logger');
 
-const logger = createLogger('export');
+const argv = yargs.string('url').string('dir').boolean('dry').argv;
+const logger = createLogger('export', {file: false});
 
-const getEvents = (cb) => pgConnect(logger, (client, done) => client.query(
-  `SELECT
-    (sport || '-' || extract(YEAR from created)) as id
-  FROM
-    masters
-  GROUP BY
-    extract(YEAR from created), sport;`,
-  (err, res) => {
+const URL = argv.url || config.api.url;
+const DIR = argv.dir;
+const DRY = argv.dry;
+
+const getQueryRows = (query) => (cb) => pgConnect(logger, (client, done) =>
+  client.query(query, (err, res) => {
     done();
 
-    if (err) {
-      return cb(err);
-    }
-
-    if (!res || !res.rows.length) {
-      return cb(new Error('Not found'));
-    }
+    if (err) return cb(err);
+    if (!res || !res.rows.length) return cb(new Error('Not found'));
 
     return cb(null, _.map(res.rows, 'id'));
-  }
-));
-
-const getUsers = (cb) => pgConnect(logger, (client, done) => client.query(
-  `SELECT
-    u.id
-  FROM
-    users as u`,
-  (err, res) => {
-    done();
-
-    if (err) {
-      return cb(err);
-    }
-
-    if (!res || !res.rows.length) {
-      return cb(new Error('Not found'));
-    }
-
-    return cb(null, _.map(res.rows, 'id'));
-  }
-));
+  })
+);
 
 const getUrls = (cb) => async.parallel({
-  users: getUsers,
-  events: getEvents
+  users: getQueryRows(
+    `SELECT
+      u.id
+    FROM
+      users as u`
+  ),
+  events: getQueryRows(
+    `SELECT
+      (sport || '-' || extract(YEAR from created)) as id
+    FROM
+      masters
+    GROUP BY
+      extract(YEAR from created), sport`
+  )
 }, (err, res) => {
   if (err) return cb(err);
 
@@ -86,40 +70,46 @@ const getUrls = (cb) => async.parallel({
   return cb(null, urls);
 });
 
-const saveJSONToFile = (url, cb) => {
-  request(`http://${config.hapi.host}:${config.hapi.port}${url}`, (err, resp, body) => {
-    if (err) {
-      cb(err);
-      return;
-    }
+const saveJSONToFile = (url, cb) => request(`${URL}${url}`, (err, resp, body) => {
+  if (err) {
+    return cb(err);
+  }
 
-    const dirname = path.dirname(url);
-    const basename = path.basename(url);
-    const dir = path.resolve(__dirname, `../.export${dirname}`);
-    const file = path.join(dir, `${basename}.json`);
+  const dirname = path.dirname(url);
+  const basename = path.basename(url);
+  const dir = path.resolve(process.cwd(), DIR, dirname);
+  const file = path.join(dir, `${basename}.json`);
+  const data = JSON.parse(body);
 
-    mkdirp(dir, (mkdirpErr) => {
-      if (mkdirpErr) {
-        cb(err);
-        return;
+  if (DRY) {
+    logger.log(`Writing ${file}`);
+    logger.log(JSON.stringify(data));
+    return cb();
+  }
+
+  mkdirp.sync(dir);
+  fs.writeFileSync(file, JSON.stringify(data));
+  return cb();
+});
+
+getUrls((err, urls) => {
+  if (err) {
+    logger.error('get urls error', err);
+    throw err;
+  }
+
+  return async.series(
+    urls.map((url) => (cb) => saveJSONToFile(url, cb)),
+    (taskErr) => {
+      if (taskErr) {
+        logger.error('save json err', taskErr);
+        throw taskErr;
       }
 
-      fs.writeFile(file, JSON.stringify(JSON.parse(body)), (writeErr) => {
-        cb(writeErr, writeErr ? null : 'Done');
-      });
-    });
-  });
-};
+      logger.log('Success!');
 
-setTimeout(() => getUrls((err, urls) => {
-  if (err) throw err;
-
-  const tasks = urls.map((url) => (cb) => saveJSONToFile(url, cb));
-
-  async.parallel(tasks, (taskErr) => {
-    if (taskErr) throw err;
-
-    console.log('Exported');
-    process.exit(0);
-  });
-}), 1500); // eslint-disable-line no-magic-numbers
+       // eslint-disable-next-line no-process-exit
+      process.exit(0);
+    }
+  );
+});
