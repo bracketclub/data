@@ -5,6 +5,7 @@ export NODE_ENV="test"
 echo "Clearing test DB"
 ./bin/db.sh tweetyourbracket-test
 
+ARGS=$@
 PIDS=()
 SPORTS=("ncaam" "ncaaw" "nba" "nhl")
 TYPES=("entries" "scores" "users")
@@ -28,7 +29,7 @@ echo "==============================="
 echo "==============================="
 
 for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
-  node integration/${TYPE} --sport=${SPORT} &
+  node integration/${TYPE} --sport=${SPORT} $ARGS &
   PIDS+=($!)
 done; done
 
