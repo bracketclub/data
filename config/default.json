@@ -42,6 +42,22 @@
         "finalPeriod": 2,
         "periodLength": "20m"
       }
+    },
+    "nba": {
+      "interval": "2m",
+      "url": "http://www.espn.com/nba/scoreboard/_/date/{date}",
+      "parse": {
+        "finalPeriod": 4,
+        "periodLength": "12m"
+      }
+    },
+    "nhl": {
+      "interval": "2m",
+      "url": "http://www.espn.com/nhl/scoreboard/_/date/{date}",
+      "parse": {
+        "finalPeriod": 3,
+        "periodLength": "20m"
+      }
     }
   }
 }

@@ -130,8 +130,6 @@ COPY entries (id, bracket, "user", created, sport) FROM stdin;
 --
 
 COPY masters (id, created, bracket, sport) FROM stdin;
-1	2016-01-14 09:05:08.509-07	SXXXXXXXXXXXXXXXEXXXXXXXXXXXXXXXMWXXXXXXXXXXXXXXXWXXXXXXXXXXXXXXXFFXXX	ncaam
-2	2016-01-21 08:49:15.322-07	BXXXXXXXXXXXXXXXDXXXXXXXXXXXXXXXLXXXXXXXXXXXXXXXSXXXXXXXXXXXXXXXFFXXX	ncaaw
 \.
 
 
@@ -139,7 +137,7 @@ COPY masters (id, created, bracket, sport) FROM stdin;
 -- Name: masters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tweetyourbracket
 --
 
-SELECT pg_catalog.setval('masters_id_seq', 3, true);
+SELECT pg_catalog.setval('masters_id_seq', 1, true);
 
 
 --

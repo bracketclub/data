@@ -2,6 +2,11 @@
 
 'use strict';
 
+const argv = require('yargs')
+  .number('interval')
+  .default('interval', 5000)
+  .argv;
+
 module.exports = {
-  INTERVAL: 5000
+  INTERVAL: argv.interval
 };
