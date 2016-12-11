@@ -7,29 +7,39 @@ const fs = require('fs');
 const async = require('async');
 const _ = require('lodash');
 const request = require('request');
-const config = require('getconfig');
 const mkdirp = require('mkdirp');
 const yargs = require('yargs');
-const pgConnect = require('../watchers/lib/pgConnect');
-const createLogger = require('../watchers/lib/logger');
+const pg = require('pg');
 
-const argv = yargs.string('url').string('dir').boolean('dry').argv;
-const logger = createLogger('export', {file: false});
+const {
+  url: URL,
+  dir: DIR,
+  dry: DRY,
+  db: DB
+} = yargs
+  .string('url')
+  .string('dir')
+  .string('db')
+  .boolean('dry')
+  .argv;
 
-const URL = argv.url || config.api.url;
-const DIR = argv.dir;
-const DRY = argv.dry;
+// eslint-disable-next-line no-console
+const logger = console;
 
-const getQueryRows = (query) => (cb) => pgConnect(logger, (client, done) =>
-  client.query(query, (err, res) => {
+const getQueryRows = (query) => (cb) => pg.connect(DB, (connErr, client, done) => {
+  if (connErr) {
+    return cb(connErr);
+  }
+
+  return client.query(query, (err, res) => {
     done();
 
     if (err) return cb(err);
     if (!res || !res.rows.length) return cb(new Error('Not found'));
 
     return cb(null, _.map(res.rows, 'id'));
-  })
-);
+  });
+});
 
 const getUrls = (cb) => async.parallel({
   users: getQueryRows(
