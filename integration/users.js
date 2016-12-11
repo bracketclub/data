@@ -3,9 +3,9 @@
 const Generator = require('bracket-generator');
 
 const {INTERVAL} = require('./interval');
-const createLogger = require('../watchers/lib/logger');
-const createSaveEntry = require('../watchers/lib/saveEntry');
-const {id, sport, year} = require('../watchers/lib/sportYear');
+const createLogger = require('../lib/logger');
+const createSaveEntry = require('../lib/saveEntry');
+const {id, sport, year} = require('../lib/sportYear');
 
 const logger = createLogger(`users:${id}`);
 const saveEntry = createSaveEntry({logger, sport, year});

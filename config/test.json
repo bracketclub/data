@@ -1,15 +1,6 @@
 {
   "isDev": false,
 
-  "watchers": {
-    "logOptions": {
-      "file": false,
-      "format": ":level :time :data",
-      "timestamp": "HH:mm:ss",
-      "accessFormat": ":time :level :method :status :url"
-    }
-  },
-
   "postgres": {
     "connectionString": "postgres://lukekarrys@localhost/tweetyourbracket-test"
   }

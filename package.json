@@ -1,6 +1,6 @@
 {
-  "name": "tweetyourbracket-api",
-  "description": "The master and entries API for tweetyourbracket.com.",
+  "name": "tyb-data",
+  "description": "The data and DB for Tweet Your Bracket.",
   "version": "1.0.0",
   "author": {
     "name": "Luke Karrys",
@@ -8,7 +8,7 @@
     "url": "http://lukekarrys.com"
   },
   "bugs": {
-    "url": "https://bitbucket.org/lukekarrys/api/issues"
+    "url": "https://bitbucket.org/lukekarrys/data/issues"
   },
   "dependencies": {
     "@lukekarrys/entry-watcher": "^5.0.4",
@@ -28,16 +28,12 @@
     "eslint": "^3.12.0",
     "eslint-plugin-import": "^2.2.0",
     "git-validate": "^2.2.2",
-    "mkdirp": "^0.5.1",
-    "npm-run-all": "^3.1.2",
-    "request": "^2.79.0",
-    "rimraf": "^2.5.4",
     "scores": "^3.3.0"
   },
   "engines": {
     "node": "^6"
   },
-  "homepage": "https://bitbucket.org/lukekarrys/api",
+  "homepage": "https://bitbucket.org/lukekarrys/data",
   "keywords": [
     "bracket",
     "ncaa",
@@ -52,27 +48,17 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://bitbucket.org/lukekarrys/api.git"
+    "url": "git://bitbucket.org/lukekarrys/data.git"
   },
   "scripts": {
-    "db:clean": "npm run db:drop && npm run db:create && npm run db:seed",
-    "db:commit": "npm run db:dump && git commit sql/tweetyourbracket.sql -m \"update sql `date +%Y-%m-%dT%H:%M:%S%z`\"",
-    "db:create": "psql -d postgres -c \"CREATE ROLE tweetyourbracket WITH PASSWORD 'password' NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN\" && createdb tweetyourbracket -O tweetyourbracket",
-    "db:drop": "dropdb --if-exists tweetyourbracket && psql -d postgres -c 'DROP ROLE IF EXISTS tweetyourbracket'",
-    "db:dump": "pg_dump tweetyourbracket > sql/tweetyourbracket.sql",
-    "db:seed": "psql -d tweetyourbracket -f sql/tweetyourbracket.sql",
-    "export:dir": "rimraf .export/ && node bin/export.js",
+    "integration": "NODE_ENV=test ./integration/run.sh",
     "lint": "eslint .",
+    "pm2:config": "node bin/pm2-config",
     "pm2:delete": "pm2 delete pm2.json",
     "pm2:logs": "pm2 logs pm2.json",
     "pm2:restart": "pm2 restart pm2.json",
     "pm2:start": "pm2 start pm2.json",
     "pm2:stop": "pm2 stop pm2.json",
-    "prod:update:men": "NODE_ENV=production ./bin/insertBracket.js --year=`date +%Y` --sport=ncaam --date `date +%Y%m%d`",
-    "prod:update:women": "NODE_ENV=production ./bin/insertBracket.js --year=`date +%Y` --sport=ncaaw --date `date +%Y%m%d`",
-    "start:entries": "node watchers/entries",
-    "start:scores": "node watchers/scores",
-    "test": "NODE_ENV=test ./integration/run.sh",
     "validate": "npm ls"
   }
 }

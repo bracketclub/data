@@ -8,7 +8,6 @@ createdb tweetyourbracket-test
 psql -d tweetyourbracket-test -f sql/test.sql 2>&1 >/dev/null
 
 PIDS=()
-YEAR="2016"
 SPORTS=("ncaam" "ncaaw" "nba" "nhl")
 TYPES=("entries" "scores" "users")
 
@@ -27,7 +26,7 @@ trap handler EXIT
 echo "Start the server now"
 
 for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
-  node integration/${TYPE} --year=${YEAR} --sport=${SPORT} &
+  node integration/${TYPE} --sport=${SPORT} &
   PIDS+=($!)
 done; done
 
