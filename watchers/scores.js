@@ -4,16 +4,17 @@ const ScoreWatcher = require('@lukekarrys/score-watcher');
 const config = require('getconfig');
 const bracketData = require('bracket-data');
 
-const latestBracket = require('./lib/latestBracket');
-const saveMaster = require('./lib/saveMaster');
-const pgConnect = require('./lib/pgConnect');
-const createLogger = require('./lib/logger');
-const {sport, year, id} = require('./lib/sportYear');
+const latestBracket = require('../lib/latestBracket');
+const saveMaster = require('../lib/saveMaster');
+const pgConnect = require('../lib/pgConnect');
+const createLogger = require('../lib/logger');
+const {sport, year, id} = require('../lib/sportYear');
 
 const tybConfig = config.tweetyourbracket;
 const scoreConfig = config.scores[sport];
+const {constants: {EMPTY}} = bracketData({sport, year});
+
 const logger = createLogger(`scores:${id}`);
-const emptyBracket = bracketData({sport, year}).constants.EMPTY;
 
 pgConnect(logger, (client, done) => {
   const startWatcher = (err, master) => {
@@ -36,7 +37,7 @@ pgConnect(logger, (client, done) => {
     `INSERT INTO masters
     (bracket, created, sport)
     VALUES ($1, $2, $3);`,
-    [emptyBracket, new Date().toJSON(), sport],
+    [EMPTY, new Date().toJSON(), sport],
     (insertErr) => {
       // Done with pg
       done();
@@ -54,7 +55,7 @@ pgConnect(logger, (client, done) => {
 
       // If we successfully inserted the base empty bracket, then start the score
       // watcher with that bracket
-      return startWatcher(null, emptyBracket);
+      return startWatcher(null, EMPTY);
     }
   );
 });
