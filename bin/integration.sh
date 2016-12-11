@@ -3,9 +3,7 @@
 export NODE_ENV="test"
 
 echo "Clearing test DB"
-dropdb --if-exists tweetyourbracket-test
-createdb tweetyourbracket-test
-psql -d tweetyourbracket-test -f sql/test.sql 2>&1 >/dev/null
+./bin/db.sh tweetyourbracket-test
 
 PIDS=()
 SPORTS=("ncaam" "ncaaw" "nba" "nhl")
@@ -23,7 +21,11 @@ handler()
 
 trap handler EXIT
 
+echo "==============================="
+echo "==============================="
 echo "Start the server now"
+echo "==============================="
+echo "==============================="
 
 for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
   node integration/${TYPE} --sport=${SPORT} &
