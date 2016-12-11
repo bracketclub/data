@@ -16,6 +16,7 @@ const numbers = () => Math.random().toString().slice(2);
 logger.log(`Starting user(5):${id}`);
 
 // User with multiple entries
+/* eslint-disable camelcase */
 setInterval(() => saveEntry({
   data_id: numbers(),
   user_id: '5',
@@ -25,3 +26,4 @@ setInterval(() => saveEntry({
   bracket: bracket.generate('random'),
   created: new Date().toJSON()
 }), INTERVAL);
+/* eslint-enable camelcase */

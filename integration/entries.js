@@ -17,6 +17,7 @@ const letters = () => numbers().split('').map((n) => String.fromCharCode(parseIn
 
 logger.log(`Starting entries:${id}`);
 
+/* eslint-disable camelcase */
 setInterval(() => saveEntry({
   data_id: numbers(),
   user_id: numbers(),
@@ -26,3 +27,4 @@ setInterval(() => saveEntry({
   bracket: bracket.generate('random'),
   created: new Date().toJSON()
 }), INTERVAL);
+/* eslint-enable camelcase */

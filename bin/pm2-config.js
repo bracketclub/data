@@ -15,7 +15,7 @@ const combine = (arr1, arr2) => arr1.reduce((memo, item1) => {
 }, []);
 
 const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
-  exec_mode: 'fork_mode',
+  exec_mode: 'fork_mode', // eslint-disable-line camelcase
   script: `./watchers/${watcher}.js`,
   name: `${watcher}:${sport}`,
   env: {
