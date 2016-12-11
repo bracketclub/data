@@ -12,23 +12,25 @@ The data and DB for Tweet Your Bracket.
 - `scores`
 
 **Sports**
+
 - `ncaam`
 - `ncaaw`
 - `nba`
 - `nhl`
 
 ```sh
-node watchers/$WATCHER --sport=$SPORT --year $YEAR
+node watchers/$WATCHER --sport=$SPORT --year=$YEAR
 ```
 
 
 ## Via pm2
 
 ```sh
-# npm run-scripts to start things using pm2
-npm run pm2:start -- --only $WATCHER:$SPORT
+# Start all (probablt dont do this)
+npm run pm2:start
 
-# Later
+# Operate on only one
+npm run pm2:start -- --only $WATCHER:$SPORT
 npm run pm2:restart -- --only $WATCHER:$SPORT
 npm run pm2:stop -- --only $WATCHER:$SPORT
 npm run pm2:delete -- --only $WATCHER:$SPORT
