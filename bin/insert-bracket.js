@@ -50,9 +50,10 @@ const getCurrent = (cb) => latestBracket({logger, sport, year}, cb);
 const transformTeam = (team) => ({seed: team.rank, name: team.names});
 const normalizeTeamName = (name) => name.toLowerCase().replace(/[^\w\s-]/g, '');
 const matchTeam = (all, team) => all.map(normalizeTeamName).indexOf(normalizeTeamName(team)) > -1;
+const getNames = (team) => (team.names || team.name).map(normalizeTeamName).join('|');
 
 // Of all events find one that matches the team and return relevant event data
-const findGame = (events) => (team) => {
+const findGame = (events, team) => {
   const event = events.find((e) => matchTeam(e.home.names, team) || matchTeam(e.away.names, team));
 
   if (!event || !event.status.completed) return null;
@@ -69,11 +70,11 @@ const findGame = (events) => (team) => {
 // match the events on the master list
 const missingMessage = ({events, teams, missing}) => {
   const teamsMessage = normalizeTeamName(teams[missing]);
-  const eventsMessage = events.map((e) => {
-    const h = e.home.names.map(normalizeTeamName).join('|');
-    const a = e.away.names.map(normalizeTeamName).join('|');
-    return `${e.status.completed}\n${h}\n${a}`;
-  }).join('\n\n');
+  const eventsMessage = events.map((e) => `
+    completed: ${e.status.completed}
+    home: ${getNames(e.home)}
+    away: ${getNames(e.away)}
+  `).join('\n\n');
 
   return `Could not find completed game for: ${teamsMessage}\n\nPossible values:\n\n${eventsMessage}`;
 };
@@ -84,18 +85,24 @@ const missingMessage = ({events, teams, missing}) => {
 const updateGames = (currentMaster, teams, cb) => parseDate((err, events) => {
   if (err) return cb(err);
 
-  const games = teams.map(findGame(events));
+  const games = teams.map((team) => findGame(events, team));
   const missing = games.indexOf(null);
 
-  if (missing > -1) return cb(null, new Error(missingMessage({events, teams, missing})));
+  if (missing > -1) return cb(new Error(missingMessage({events, teams, missing})));
+
+  logger.log(`Updating for ${games.length} games`);
 
   return async.map(games, (game, gameCb) => {
+    const {region, winner, loser, series: {playedCompetitions}} = game;
+
+    logger.log(`Updating ${winner.seed} ${winner.name[0]} over ${loser.seed} ${loser.name[0]} from ${region} in ${playedCompetitions}`);
+
     currentMaster = updater.update({
       currentMaster,
-      fromRegion: game.region,
-      playedCompetitions: game.series.playedCompetitions,
-      winner: game.winner,
-      loser: game.loser
+      winner,
+      loser,
+      playedCompetitions,
+      fromRegion: region
     });
 
     saveMaster(currentMaster, gameCb);
@@ -109,6 +116,8 @@ getCurrent((currentErr, current) => {
     throw currentErr;
   }
 
+  logger.log('Starting with', current);
+
   updateGames(current, TEAMS, (updateErr, brackets) => {
     if (updateErr) {
       logger.error('Erroring updating games', updateErr);
@@ -117,6 +126,9 @@ getCurrent((currentErr, current) => {
 
     logger.log('Success!');
     brackets.map((b) => logger.log(b));
-    logger.log('===============\nRestart the score worker!\n===============');
+    logger.log('=============== Restart the score worker! ===============');
+
+    // eslint-disable-next-line no-process-exit
+    process.exit(0);
   });
 });
