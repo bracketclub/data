@@ -14,8 +14,5 @@
     "access_token_secret": "TWTR_TOKEN_SECRET"
   },
 
-  "postgres": {
-    "connectionString": "$POSTGRES_URL"
-  },
+  "postgres": "$POSTGRES_URL"
 }
-

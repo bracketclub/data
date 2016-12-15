@@ -47,6 +47,24 @@ npm run integration
 ```
 
 
+## So you missed a finished score in production
+
+```sh
+# Want you probably want to do if you missed something today.
+# Since order of bracket order matters in the database the --teams param order
+# is important. This will take the current bracket and look up the scores for today
+# (or use --date) and apply each result that the teams played in.
+NODE_ENV=production npm run insert-by-team -- --sport ncaaw --teams uconn "notre dame"
+```
+
+## Dumping a database
+
+```sh
+# Connection string will come from NODE_ENV and it will save to sql/$ENV.sql
+NODE_ENV=production npm run dump
+```
+
+
 ## Deploying on Digital Ocean
 
 - [Initial server setup](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04)

@@ -51,7 +51,8 @@
     "url": "git://bitbucket.org/lukekarrys/data.git"
   },
   "scripts": {
-    "insert-by-team": "./bin/insert-bracket.js",
+    "dump": "./bin/dump.js",
+    "insert-by-team": "./bin/insert-by-team.js",
     "integration": "NODE_ENV=test ./bin/integration.sh",
     "lint": "eslint .",
     "pm2:config": "./bin/pm2-config.js",

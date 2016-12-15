@@ -10,9 +10,7 @@
     }
   },
 
-  "postgres": {
-    "connectionString": "postgres://lukekarrys@localhost/tweetyourbracket"
-  },
+  "postgres": "postgres://lukekarrys@localhost/tweetyourbracket",
 
   "twitter": {
     "consumer_key": "",
