@@ -13,7 +13,7 @@ const createLogger = require('../lib/logger');
 const latestBracket = require('../lib/latestBracket');
 
 const today = `${new Date().getFullYear()}${new Date().getMonth() + 1}${new Date().getDate()}`;
-const usage = `Usage: $0 --date [yyyymmdd] --sport [SPORT] --teams [TEAM1,TEAM2]
+const usage = `Usage: $0 --date [yyyymmdd] --sport [SPORT] --teams [TEAM1] [TEAM2]
 If any team is not found in scores from DATE/SPORT, all inserts will be aborted.`;
 
 const {
