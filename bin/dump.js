@@ -2,6 +2,11 @@
 
 'use strict';
 
+process.env.TWTR_KEY = 'null';
+process.env.TWTR_SECRET = 'null';
+process.env.TWTR_TOKEN = 'null';
+process.env.TWTR_TOKEN_SECRET = 'null';
+
 const fs = require('fs');
 const path = require('path');
 const exec = require('child_process').exec;
@@ -14,26 +19,26 @@ const connection = /^postgres:\/\/(\w*)(:\w*)?@([\w\-.]*)(:\d*)?\/(\w*)(\?.*)?$/
 
 const [, username, password, host, port, database] = postgres.match(connection) || [];
 
-// Port is optional and needs colon removed
-const portArg = port ? ['-p', port.slice(1)] : [];
-
-// Password is optional and needs colon removed
-const passwordArg = password ? password.slice(1) : null;
-if (passwordArg) fs.saveSomewhereIThink(passwordArg);
-
 const args = [
   '-h', host,
   '-U', username,
-  ...portArg,
+  ...(port ? ['-p', port.slice(1)] : []),
   database
 ].join(' ');
 
 const command = `pg_dump ${args}`;
 log(command);
 
+// Password is optional and needs colon removed
+const passwordArg = password ? password.slice(1) : null;
+if (passwordArg) {
+  process.env.PGPASSWORD = passwordArg;
+  log('Password:', '*'.repeat(passwordArg.length));
+}
+
 exec(command, (err, resp) => {
   if (err) throw err;
   const output = path.resolve(__dirname, '..', 'sql', `${env}.sql`);
-  log(output, resp.length);
+  log(`\n${output}`, resp.length);
   fs.writeFileSync(output, resp);
 });
