@@ -2,6 +2,7 @@
 
 'use strict';
 
+// Get around production env vars that might not be set
 process.env.TWTR_KEY = 'null';
 process.env.TWTR_SECRET = 'null';
 process.env.TWTR_TOKEN = 'null';
