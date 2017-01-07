@@ -29,4 +29,4 @@ node_modules
 # Created
 pm2.json
 sql/*.sql
-!sql/tweetyourbracket-test.sql
+!sql/test.sql

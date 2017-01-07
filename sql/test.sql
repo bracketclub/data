@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.0
--- Dumped by pg_dump version 9.5.0
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -14,14 +15,14 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +31,7 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 SET search_path = public, pg_catalog;
 
 --
--- Name: to_yyyy_char(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: tweetyourbracket
+-- Name: to_yyyy_char(timestamp with time zone); Type: FUNCTION; Schema: public; Owner: tweetyourbracket-test
 --
 
 CREATE FUNCTION to_yyyy_char(some_time timestamp with time zone) RETURNS text
@@ -40,14 +41,14 @@ CREATE FUNCTION to_yyyy_char(some_time timestamp with time zone) RETURNS text
 $_$;
 
 
-ALTER FUNCTION public.to_yyyy_char(some_time timestamp with time zone) OWNER TO tweetyourbracket;
+ALTER FUNCTION public.to_yyyy_char(some_time timestamp with time zone) OWNER TO "tweetyourbracket-test";
 
 SET default_tablespace = '';
 
 SET default_with_oids = false;
 
 --
--- Name: entries; Type: TABLE; Schema: public; Owner: tweetyourbracket
+-- Name: entries; Type: TABLE; Schema: public; Owner: tweetyourbracket-test
 --
 
 CREATE TABLE entries (
@@ -59,10 +60,10 @@ CREATE TABLE entries (
 );
 
 
-ALTER TABLE entries OWNER TO tweetyourbracket;
+ALTER TABLE entries OWNER TO "tweetyourbracket-test";
 
 --
--- Name: masters; Type: TABLE; Schema: public; Owner: tweetyourbracket
+-- Name: masters; Type: TABLE; Schema: public; Owner: tweetyourbracket-test
 --
 
 CREATE TABLE masters (
@@ -73,10 +74,10 @@ CREATE TABLE masters (
 );
 
 
-ALTER TABLE masters OWNER TO tweetyourbracket;
+ALTER TABLE masters OWNER TO "tweetyourbracket-test";
 
 --
--- Name: masters_id_seq; Type: SEQUENCE; Schema: public; Owner: tweetyourbracket
+-- Name: masters_id_seq; Type: SEQUENCE; Schema: public; Owner: tweetyourbracket-test
 --
 
 CREATE SEQUENCE masters_id_seq
@@ -87,17 +88,17 @@ CREATE SEQUENCE masters_id_seq
     CACHE 1;
 
 
-ALTER TABLE masters_id_seq OWNER TO tweetyourbracket;
+ALTER TABLE masters_id_seq OWNER TO "tweetyourbracket-test";
 
 --
--- Name: masters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tweetyourbracket
+-- Name: masters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: tweetyourbracket-test
 --
 
 ALTER SEQUENCE masters_id_seq OWNED BY masters.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: tweetyourbracket
+-- Name: users; Type: TABLE; Schema: public; Owner: tweetyourbracket-test
 --
 
 CREATE TABLE users (
@@ -108,17 +109,17 @@ CREATE TABLE users (
 );
 
 
-ALTER TABLE users OWNER TO tweetyourbracket;
+ALTER TABLE users OWNER TO "tweetyourbracket-test";
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: tweetyourbracket
+-- Name: masters id; Type: DEFAULT; Schema: public; Owner: tweetyourbracket-test
 --
 
 ALTER TABLE ONLY masters ALTER COLUMN id SET DEFAULT nextval('masters_id_seq'::regclass);
 
 
 --
--- Data for Name: entries; Type: TABLE DATA; Schema: public; Owner: tweetyourbracket
+-- Data for Name: entries; Type: TABLE DATA; Schema: public; Owner: tweetyourbracket-test
 --
 
 COPY entries (id, bracket, "user", created, sport) FROM stdin;
@@ -126,7 +127,7 @@ COPY entries (id, bracket, "user", created, sport) FROM stdin;
 
 
 --
--- Data for Name: masters; Type: TABLE DATA; Schema: public; Owner: tweetyourbracket
+-- Data for Name: masters; Type: TABLE DATA; Schema: public; Owner: tweetyourbracket-test
 --
 
 COPY masters (id, created, bracket, sport) FROM stdin;
@@ -134,14 +135,14 @@ COPY masters (id, created, bracket, sport) FROM stdin;
 
 
 --
--- Name: masters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tweetyourbracket
+-- Name: masters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tweetyourbracket-test
 --
 
 SELECT pg_catalog.setval('masters_id_seq', 1, true);
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tweetyourbracket
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: tweetyourbracket-test
 --
 
 COPY users (id, username, name, profile_pic) FROM stdin;
@@ -149,7 +150,7 @@ COPY users (id, username, name, profile_pic) FROM stdin;
 
 
 --
--- Name: entries_pkey; Type: CONSTRAINT; Schema: public; Owner: tweetyourbracket
+-- Name: entries entries_pkey; Type: CONSTRAINT; Schema: public; Owner: tweetyourbracket-test
 --
 
 ALTER TABLE ONLY entries
@@ -157,7 +158,7 @@ ALTER TABLE ONLY entries
 
 
 --
--- Name: masters_pkey; Type: CONSTRAINT; Schema: public; Owner: tweetyourbracket
+-- Name: masters masters_pkey; Type: CONSTRAINT; Schema: public; Owner: tweetyourbracket-test
 --
 
 ALTER TABLE ONLY masters
@@ -165,7 +166,7 @@ ALTER TABLE ONLY masters
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: tweetyourbracket
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: tweetyourbracket-test
 --
 
 ALTER TABLE ONLY users
@@ -173,35 +174,25 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: entries_bracket_to_yyyy_char_idx; Type: INDEX; Schema: public; Owner: tweetyourbracket
+-- Name: entries_bracket_to_yyyy_char_idx; Type: INDEX; Schema: public; Owner: tweetyourbracket-test
 --
 
 CREATE UNIQUE INDEX entries_bracket_to_yyyy_char_idx ON entries USING btree (bracket, sport, to_yyyy_char(created));
 
 
 --
--- Name: masters_bracket_to_yyyy_char_idx; Type: INDEX; Schema: public; Owner: tweetyourbracket
+-- Name: masters_bracket_to_yyyy_char_idx; Type: INDEX; Schema: public; Owner: tweetyourbracket-test
 --
 
 CREATE UNIQUE INDEX masters_bracket_to_yyyy_char_idx ON masters USING btree (bracket, sport, to_yyyy_char(created));
 
 
 --
--- Name: entries_user_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tweetyourbracket
+-- Name: entries entries_user_fkey; Type: FK CONSTRAINT; Schema: public; Owner: tweetyourbracket-test
 --
 
 ALTER TABLE ONLY entries
     ADD CONSTRAINT entries_user_fkey FOREIGN KEY ("user") REFERENCES users(id);
-
-
---
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
