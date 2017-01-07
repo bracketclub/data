@@ -16,8 +16,8 @@ const config = require('getconfig');
  // eslint-disable-next-line no-console
 const log = console.log.bind(console);
 const {getconfig: {env}, postgres} = config;
-const connection = /^postgres:\/\/(\w*)(:\w*)?@([\w\-.]*)(:\d*)?\/(\w*)(\?.*)?$/;
 
+const connection = /^postgres:\/\/(\w*)(:\w*)?@([\w\-.]*)(:\d*)?\/([\w-]*)(\?.*)?$/;
 const [, username, password, host, port, database] = postgres.match(connection) || [];
 
 const args = [
