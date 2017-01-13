@@ -75,12 +75,8 @@ NODE_ENV=production npm run dump
 ## Setting up environment variables
 
 ```sh
-touch .env
-# TWTR_KEY=
-# TWTR_SECRET=
-# TWTR_TOKEN=
-# TWTR_TOKEN_SECRET=
-# POSTGRES_URL=
+# Create a .env file with all the necessary env vars for production
+echo "TWTR_KEY=\nTWTR_SECRET=\nTWTR_TOKEN=\nTWTR_TOKEN_SECRET=\nPOSTGRES_URL=\n" > .env
 ```
 
 ## Deploying on Digital Ocean
