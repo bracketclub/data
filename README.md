@@ -32,15 +32,17 @@ node watchers/$WATCHER --sport=$SPORT --year=$YEAR
 # watchers for the $YEAR. This should only be run once per year.
 npm run pm2:config -- --year=YEAR
 
+# Any command run through this npm run-script will use NODE_ENV=production
+
 # Start all (probably dont do this)
 npm run pm2:start
 
 # Operate on only one
-npm run pm2:start -- --only $WATCHER:$SPORT
-npm run pm2:restart -- --only $WATCHER:$SPORT
-npm run pm2:stop -- --only $WATCHER:$SPORT
-npm run pm2:delete -- --only $WATCHER:$SPORT
-npm run pm2:logs -- --only $WATCHER:$SPORT
+npm run pm2:start -- --only $WATCHER-$SPORT
+npm run pm2:restart -- --only $WATCHER-$SPORT
+npm run pm2:stop -- --only $WATCHER-$SPORT
+npm run pm2:delete -- --only $WATCHER-$SPORT
+npm run pm2:logs -- --only $WATCHER-$SPORT
 ```
 
 
@@ -57,7 +59,7 @@ npm run integration
 
 ```sh
 # Want you probably want to do if you missed something today.
-# Since order of bracket order matters in the database the --teams param order
+# Since order of masters matters in the database the --teams param order
 # is important. This will take the current bracket and look up the scores for today
 # (or use --date) and apply each result that the teams played in.
 NODE_ENV=production npm run insert-by-team -- --sport ncaaw --teams uconn "notre dame"
