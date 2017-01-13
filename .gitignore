@@ -30,3 +30,4 @@ node_modules
 pm2.json
 sql/*.sql
 !sql/test.sql
+.env
