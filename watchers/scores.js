@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const ScoreWatcher = require('@lukekarrys/score-watcher');
 const config = require('getconfig');
 const bracketData = require('bracket-data');

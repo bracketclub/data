@@ -28,7 +28,11 @@ node watchers/$WATCHER --sport=$SPORT --year=$YEAR
 ## Via pm2
 
 ```sh
-# Start all (probablt dont do this)
+# This will creat the pm2.json config file with all possible
+# watchers for the $YEAR. This should only be run once per year.
+npm run pm2:config -- --year=YEAR
+
+# Start all (probably dont do this)
 npm run pm2:start
 
 # Operate on only one
@@ -66,6 +70,16 @@ NODE_ENV=production npm run insert-by-team -- --sport ncaaw --teams uconn "notre
 NODE_ENV=production npm run dump
 ```
 
+## Setting up environment variables
+
+```sh
+touch .env
+# TWTR_KEY=
+# TWTR_SECRET=
+# TWTR_TOKEN=
+# TWTR_TOKEN_SECRET=
+# POSTGRES_URL=
+```
 
 ## Deploying on Digital Ocean
 
@@ -107,15 +121,11 @@ git clone git@bitbucket.org:tweetyourbracket/data.git
 cd data/
 npm install
 
-# Create config
-nano config/production.json
-# Add values for twitter auth, postgres connection
-
 # Setup pm2
 sudo su - tweetyourbracket
 sudo npm install -g pm2
 pm2 statup ubuntu # only the first time
 
-# See above for running via pm2
+# See above for running via pm2 and setting up env vars
 ```
 

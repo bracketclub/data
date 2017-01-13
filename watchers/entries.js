@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const EntryWatcher = require('@lukekarrys/entry-watcher');
 const config = require('getconfig');
 

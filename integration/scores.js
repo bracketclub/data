@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const _ = require('lodash');
 const data = require('bracket-data');
 const Updater = require('bracket-updater');

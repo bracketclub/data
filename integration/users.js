@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const Generator = require('bracket-generator');
 
 const {INTERVAL} = require('./interval');
