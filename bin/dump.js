@@ -2,6 +2,8 @@
 
 'use strict';
 
+require('dotenv').config();
+
 // Get around production env vars that might not be set
 process.env.TWTR_KEY = 'null';
 process.env.TWTR_SECRET = 'null';
