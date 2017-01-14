@@ -3,7 +3,7 @@
 
   "watchers": {
     "logOptions": {
-      "file": true
+      "file": "./logs/:type.log"
     }
   },
 
