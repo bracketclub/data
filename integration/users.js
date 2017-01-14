@@ -9,7 +9,7 @@ const createLogger = require('../lib/logger');
 const createSaveEntry = require('../lib/saveEntry');
 const {id, sport, year} = require('../lib/sportYear');
 
-const logger = createLogger(`users:${id}`);
+const logger = createLogger(`users-${id}`);
 const saveEntry = createSaveEntry({logger, sport, year});
 const bracket = new Generator({sport, year});
 
