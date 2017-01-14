@@ -16,7 +16,7 @@ const tybConfig = config.tweetyourbracket;
 const scoreConfig = config.scores[sport];
 const {constants: {EMPTY}} = bracketData({sport, year});
 
-const logger = createLogger(`scores:${id}`);
+const logger = createLogger(`scores-${id}`);
 
 pgConnect(logger, (client, done) => {
   const startWatcher = (err, master) => {

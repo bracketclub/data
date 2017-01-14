@@ -12,7 +12,7 @@ const createSaveMaster = require('../lib/saveMaster');
 const {sport, year, id} = require('../lib/sportYear');
 
 let currentMaster;
-const logger = createLogger(`scores:${id}`);
+const logger = createLogger(`scores-${id}`);
 const saveMaster = createSaveMaster({logger, sport, year});
 const setMaster = (bracket) => {
   currentMaster = bracket;

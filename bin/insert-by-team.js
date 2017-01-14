@@ -38,7 +38,7 @@ const {
 
 const year = DATE.match(/^\d{4}/)[0];
 const scoreConfig = config.scores[sport];
-const logger = createLogger(`insert-bracket:${sport}-${year}`);
+const logger = createLogger(`insert-bracket-${sport}-${year}`);
 
 // Partially-ish applied functions based on predetermined options
 const saveMaster = onSaveMaster({logger, sport, year});
