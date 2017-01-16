@@ -1,12 +1,6 @@
-#!/usr/bin/env node
-
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
 const {year} = require('../lib/sportYear');
-
-const CONFIG = path.resolve(__dirname, '..', 'pm2.json');
 
 const WATCHERS = ['entries', 'scores'];
 const SPORTS = ['ncaam', 'ncaaw', 'nba', 'nhl'];
@@ -17,14 +11,21 @@ const combine = (arr1, arr2) => arr1.reduce((memo, item1) => {
 }, []);
 
 const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
-  exec_mode: 'fork_mode', // eslint-disable-line camelcase
+  /* eslint-disable camelcase */
+  exec_mode: 'fork',
+  merge_logs: true,
+  /* eslint-enable camelcase */
+  instances: 1,
   script: `./watchers/${watcher}.js`,
   name: `${watcher}-${sport}`,
   env: {
     TYB_YEAR: year,
     TYB_SPORT: sport,
+    NODE_ENV: 'development'
+  },
+  env_production: {
     NODE_ENV: 'production'
   }
 }));
 
-fs.writeFileSync(CONFIG, JSON.stringify({apps}, null, 2));
+module.exports = {apps};
