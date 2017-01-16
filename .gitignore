@@ -27,7 +27,6 @@ build/Release
 node_modules
 
 # Created
-pm2.json
 sql/*.sql
 !sql/test.sql
 .env
