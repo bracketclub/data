@@ -56,12 +56,11 @@
     "insert-by-team": "./bin/insert-by-team.js",
     "integration": "NODE_ENV=test ./bin/integration.sh",
     "lint": "eslint .",
-    "pm2:config": "./bin/pm2-config.js",
-    "pm2:delete": "pm2 delete pm2.json",
-    "pm2:logs": "pm2 logs pm2.json",
-    "pm2:restart": "pm2 restart pm2.json",
-    "pm2:start": "pm2 start pm2.json",
-    "pm2:stop": "pm2 stop pm2.json",
+    "pm2:delete": "pm2 delete pm2.config.js",
+    "pm2:logs": "pm2 logs pm2.config.js",
+    "pm2:restart": "pm2 restart pm2.config.js",
+    "pm2:start": "pm2 start pm2.config.js",
+    "pm2:stop": "pm2 stop pm2.config.js",
     "validate": "npm ls"
   }
 }
