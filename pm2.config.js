@@ -1,7 +1,6 @@
 'use strict';
 
-const {year} = require('./lib/sportYear');
-
+const year = new Date().getFullYear();
 const WATCHERS = ['entries', 'scores'];
 const SPORTS = ['ncaam', 'ncaaw', 'nba', 'nhl'];
 
@@ -14,7 +13,6 @@ const combine = (arr1, arr2) => arr1.reduce((memo, item1) => {
 const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
   exec_mode: 'fork',
   merge_logs: true,
-  instances: 1,
   script: `./watchers/${watcher}.js`,
   name: `${watcher}-${sport}`,
   env: {
