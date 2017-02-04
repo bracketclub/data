@@ -1,9 +1,9 @@
 data
 =================
 
-The data and DB for Tweet Your Bracket.
+The data and DB for [bracket.club](https://bracket.club).
 
-[![Build Status](https://travis-ci.org/tweetyourbracket/data.svg?branch=master)](https://travis-ci.org/tweetyourbracket/data)
+[![Build Status](https://travis-ci.org/bracketclub/data.svg?branch=master)](https://travis-ci.org/bracketclub/data)
 
 
 ## Running each watcher

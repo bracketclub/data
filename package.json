@@ -1,5 +1,5 @@
 {
-  "name": "tyb-data",
+  "name": "data",
   "description": "The data and DB for Tweet Your Bracket.",
   "version": "1.0.0",
   "author": {
@@ -38,7 +38,8 @@
   "keywords": [
     "bracket",
     "ncaa",
-    "tweetyourbracket"
+    "tweetyourbracket",
+    "bracketclub"
   ],
   "license": "UNLICENSED",
   "main": "index.js",
