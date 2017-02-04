@@ -12,8 +12,6 @@ const pgConnect = require('../lib/pgConnect');
 const createLogger = require('../lib/logger');
 const {sport, year, id} = require('../lib/sportYear');
 
-const tybConfig = config.tweetyourbracket;
-const scoreConfig = config.scores[sport];
 const {constants: {EMPTY}} = bracketData({sport, year});
 
 const logger = createLogger(`scores-${id}`);
@@ -29,10 +27,10 @@ pgConnect(logger, (client, done) => {
       master,
       logger,
       onSave: saveMaster({logger, sport, year}),
-      scores: scoreConfig,
+      scores: config.scores[sport],
       sport,
       year
-    }, tybConfig)).start();
+    }, config.watchers.finder)).start();
   };
 
   client.query(

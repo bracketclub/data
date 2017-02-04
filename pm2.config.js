@@ -16,8 +16,8 @@ const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
   script: `./watchers/${watcher}.js`,
   name: `${watcher}-${sport}`,
   env: {
-    TYB_YEAR: year,
-    TYB_SPORT: sport,
+    BC_YEAR: year,
+    BC_SPORT: sport,
     NODE_ENV: 'development'
   },
   env_production: {

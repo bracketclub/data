@@ -18,6 +18,6 @@ const watcher = new EntryWatcher(Object.assign({
   auth: config.twitter,
   sport,
   year
-}, config.tweetyourbracket));
+}, config.watchers.finder));
 
 watcher.start();
