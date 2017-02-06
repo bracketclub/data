@@ -1,5 +1,5 @@
 {
   "isDev": false,
 
-  "postgres": "postgres://lukekarrys@localhost/tweetyourbracket-test"
+  "postgres": "postgres://lukekarrys@localhost/bracketclub-test"
 }
