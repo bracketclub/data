@@ -29,6 +29,7 @@ echo "==============================="
 echo "==============================="
 
 for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
+  echo "node integration/${TYPE} --sport=${SPORT} $ARGS"
   node integration/${TYPE} --sport=${SPORT} $ARGS &
   PIDS+=($!)
 done; done
