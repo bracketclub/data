@@ -3,7 +3,7 @@
 export NODE_ENV="test"
 
 echo "Clearing test DB"
-./bin/db.sh tweetyourbracket-test test
+./bin/db.sh bracketclub-test test
 
 ARGS=$@
 PIDS=()
