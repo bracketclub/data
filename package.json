@@ -37,13 +37,14 @@
   "homepage": "https://bitbucket.org/lukekarrys/data",
   "keywords": [
     "bracket",
+    "bracketclub",
     "ncaa",
-    "tweetyourbracket",
-    "bracketclub"
+    "tweetyourbracket"
   ],
   "license": "UNLICENSED",
   "main": "index.js",
   "pre-commit": [
+    "test",
     "lint",
     "validate"
   ],
@@ -62,6 +63,7 @@
     "pm2:restart": "pm2 restart pm2.config.js",
     "pm2:start": "pm2 start pm2.config.js",
     "pm2:stop": "pm2 stop pm2.config.js",
+    "test": "echo 'no tests yet'",
     "validate": "npm ls"
   }
 }
