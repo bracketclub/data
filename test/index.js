@@ -9,6 +9,8 @@ const ms = require('ms');
 
 const start = (...args) => spawn(path.join(__dirname, '..', 'bin', 'integration.sh'), args);
 const logData = (data) => data.toString().trim().replace(/^\s+|\s+$/g, '');
+const logArr = (arr) => arr.forEach((i) => console.log(i));
+
 const time = ms('5s');
 
 test('test', {timeout: time + ms('1s')}, (t) => {
@@ -17,24 +19,21 @@ test('test', {timeout: time + ms('1s')}, (t) => {
   const errors = [];
 
   integration.stdout.on('data', (data) => {
-    const log = logData(data);
-    if (/^\d\d:\d\d:\d\d/.test(log)) {
-      output.push(log);
-    }
+    output.push(logData(data));
   });
 
   integration.stderr.on('data', (data) => {
-    const log = logData(data);
-    errors.push(log);
+    errors.push(logData(data));
     integration.kill();
   });
 
   integration.on('exit', (code, signal) => {
-    console.log(output.length);
+    logArr(output);
     t.ok(output.length);
 
-    console.log(JSON.stringify(errors, null, 2));
+    logArr(errors);
     t.notOk(errors.length);
+
     t.end();
   });
 
