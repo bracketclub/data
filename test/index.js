@@ -1,3 +1,5 @@
+/* eslint no-console:0 */
+
 'use strict';
 
 const path = require('path');
@@ -28,7 +30,10 @@ test('test', {timeout: time + ms('1s')}, (t) => {
   });
 
   integration.on('exit', (code, signal) => {
+    console.log(output.length);
     t.ok(output.length);
+
+    console.log(JSON.stringify(errors, null, 2));
     t.notOk(errors.length);
     t.end();
   });
