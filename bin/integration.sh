@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-export NODE_ENV="test"
-
 echo "Clearing test DB"
 ./bin/db.sh bracketclub-test test
 
@@ -34,4 +32,4 @@ for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
   PIDS+=($!)
 done; done
 
-while true; do sleep 60; done
+while true; do sleep 1; done
