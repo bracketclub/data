@@ -1,5 +1,3 @@
-/* eslint no-console:0 */
-
 'use strict';
 
 const path = require('path');
@@ -9,6 +7,8 @@ const ms = require('ms');
 
 const start = (...args) => spawn(path.join(__dirname, '..', 'bin', 'integration.sh'), args);
 const logData = (data) => data.toString().trim().replace(/^\s+|\s+$/g, '');
+
+// eslint-disable-next-line no-console
 const logArr = (arr) => arr.forEach((i) => console.log(i));
 
 const time = ms('5s');
