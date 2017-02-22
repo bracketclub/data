@@ -75,9 +75,3 @@ NODE_ENV=production npm run dump
 # Create a .env file with all the necessary env vars for production
 echo "TWTR_KEY=\nTWTR_SECRET=\nTWTR_TOKEN=\nTWTR_TOKEN_SECRET=\nPOSTGRES_URL=\n" > .env
 ```
-
-## Deploying on Digital Ocean
-
-- [Initial server setup](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04)
-- [Setting up a Node app](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-14-04)
-- [Security](https://help.ubuntu.com/community/AutomaticSecurityUpdates)
