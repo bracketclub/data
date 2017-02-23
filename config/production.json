@@ -11,7 +11,7 @@
     "consumer_key": "$TWTR_KEY",
     "consumer_secret": "$TWTR_SECRET",
     "access_token": "$TWTR_TOKEN",
-    "access_token_secret": "TWTR_TOKEN_SECRET"
+    "access_token_secret": "$TWTR_TOKEN_SECRET"
   },
 
   "postgres": "$POSTGRES_URL"

@@ -29,16 +29,19 @@ node watchers/$WATCHER --sport=$SPORT --year=$YEAR
 
 ```sh
 # Any command run through this npm run-script will use NODE_ENV=production
+# They will also use the current year for $YEAR
 
 # Start all (probably dont do this)
-npm run pm2:start
+./pm2
 
-# Operate on only one
-npm run pm2:start -- --only $WATCHER-$SPORT
-npm run pm2:restart -- --only $WATCHER-$SPORT
-npm run pm2:stop -- --only $WATCHER-$SPORT
-npm run pm2:delete -- --only $WATCHER-$SPORT
-npm run pm2:logs -- --only $WATCHER-$SPORT
+# Start only one
+./pm2 $WATCHER $SPORT
+
+# Run other pm2 commnads
+./pm2 $WATCHER $SPORT restart
+./pm2 $WATCHER $SPORT stop
+./pm2 $WATCHER $SPORT delete
+./pm2 $WATCHER $SPORT logs
 ```
 
 
@@ -75,3 +78,8 @@ NODE_ENV=production npm run dump
 # Create a .env file with all the necessary env vars for production
 echo "TWTR_KEY=\nTWTR_SECRET=\nTWTR_TOKEN=\nTWTR_TOKEN_SECRET=\nPOSTGRES_URL=\n" > .env
 ```
+
+## Deploy to Linode
+
+- [Edit StackScript](https://manager.linode.com/stackscripts/edit/72210)
+- [Rebuild with StackScript](https://manager.linode.com/linodes/rebuild/bracketclub?StackScriptID=72210)

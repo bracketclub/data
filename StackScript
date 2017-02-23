@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# <UDF name="twitter_key" Label="Twitter key" />
+# <UDF name="twitter_secret" Label="Twitter secret" />
+# <UDF name="twitter_token" Label="Twitter token" />
+# <UDF name="twitter_token_secret" Label="Twitter token secret" />
+# <UDF name="postgres_url" Label="URL to postgresql db" />
+
+set -e
+
+# Save stdout and stderr
+exec 6>&1
+exec 5>&2
+
+# Redirect stdout and stderr to a file
+exec > /root/StackScript.out
+exec 2>&1
+
+# apt-get
+sudo apt-get -y -o Acquire::ForceIPv4=true -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Acquire::ForceIPv4=true -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+
+# nvm/npm/pm2
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm install 6
+npm install -g pm2
+npm ls -g --depth=0
+
+# Install app
+curl -L https://github.com/bracketclub/data/tarball/master | tar zx
+mv bracketclub-data* /root/bracketclub-data
+cd /root/bracketclub-data
+npm install
+
+# App env
+echo "TWTR_KEY=$TWITTER_KEY" >> .env
+echo "TWTR_SECRET=$TWITTER_SECRET" >> .env
+echo "TWTR_TOKEN=$TWITTER_TOKEN" >> .env
+echo "TWTR_TOKEN_SECRET=$TWITTER_TOKEN_SECRET" >> .env
+echo "POSTGRES_URL=$POSTGRES_URL" >> .env
+
+# Restore stdout and stderr
+exec 1>&6 6>&-
+exec 2>&5 5>&-
