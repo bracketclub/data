@@ -31,17 +31,14 @@ node watchers/$WATCHER --sport=$SPORT --year=$YEAR
 # Any command run through this npm run-script will use NODE_ENV=production
 # They will also use the current year for $YEAR
 
-# Start all (probably dont do this)
-./pm2
-
 # Start only one
-./pm2 $WATCHER $SPORT
+npm start $WATCHER $SPORT
 
 # Run other pm2 commnads
-./pm2 $WATCHER $SPORT restart
-./pm2 $WATCHER $SPORT stop
-./pm2 $WATCHER $SPORT delete
-./pm2 $WATCHER $SPORT logs
+npm start $WATCHER $SPORT restart
+npm start $WATCHER $SPORT stop
+npm start $WATCHER $SPORT delete
+npm start $WATCHER $SPORT logs
 ```
 
 
@@ -76,10 +73,25 @@ NODE_ENV=production npm run dump
 
 ```sh
 # Create a .env file with all the necessary env vars for production
-echo "TWTR_KEY=\nTWTR_SECRET=\nTWTR_TOKEN=\nTWTR_TOKEN_SECRET=\nPOSTGRES_URL=\n" > .env
+echo "TWITTER_KEY=$TWITTER_KEY" >> .env
+echo "TWITTER_SECRET=$TWITTER_SECRET" >> .env
+echo "TWITTER_TOKEN=$TWITTER_TOKEN" >> .env
+echo "TWITTER_TOKEN_SECRET=$TWITTER_TOKEN_SECRET" >> .env
+echo "POSTGRES_URL=$POSTGRES_URL" >> .env
 ```
 
-## Deploy to Linode
+## Linode CLI Commands
 
-- [Edit StackScript](https://manager.linode.com/stackscripts/edit/72210)
-- [Rebuild with StackScript](https://manager.linode.com/linodes/rebuild/bracketclub?StackScriptID=72210)
+```sh
+# Will create or rebuild the linode based on the current stackscript
+npm run deploy build [PATH_TO_PUB_KEY]
+
+# Will update the stackscript
+npm run deploy stackscript
+
+# IP of linoder
+npm run deploy ip
+
+# Will just delete linode
+npm run deploy delete
+```

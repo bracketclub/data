@@ -56,10 +56,12 @@
     "url": "git://bitbucket.org/lukekarrys/data.git"
   },
   "scripts": {
+    "deploy": "./bin/linode.sh",
     "dump": "./bin/dump.js",
     "insert-by-team": "./bin/insert-by-team.js",
     "integration": "NODE_ENV=test ./bin/integration.sh",
     "lint": "eslint .",
+    "start": "./bin/pm2.sh",
     "test": "NODE_ENV=test tape test/*.js",
     "validate": "npm ls"
   }
