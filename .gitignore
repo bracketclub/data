@@ -30,3 +30,4 @@ node_modules
 sql/*.sql
 !sql/test.sql
 .env
+*.pub

@@ -84,7 +84,7 @@ echo "POSTGRES_URL=$POSTGRES_URL" >> .env
 
 ```sh
 # Will create or rebuild the linode based on the current stackscript
-npm run deploy build [PATH_TO_PUB_KEY]
+npm run deploy build ./linode.pub
 
 # Will update the stackscript
 npm run deploy stackscript
