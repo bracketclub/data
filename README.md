@@ -83,15 +83,15 @@ echo "POSTGRES_URL=$POSTGRES_URL" >> .env
 ## Linode CLI Commands
 
 ```sh
-# Will create or rebuild the linode based on the current stackscript
+# Create or rebuild the linode based on the current stackscript
 npm run deploy build ./linode.pub
 
-# Will update the stackscript
+# Update the stackscript with whats in the repo
 npm run deploy stackscript
 
-# IP of linoder
+# IP address of linode
 npm run deploy ip
 
-# Will just delete linode
+# Delete linode
 npm run deploy delete
 ```
