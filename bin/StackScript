@@ -18,8 +18,8 @@ exec > /root/StackScript.out
 exec 2>&1
 
 # apt-get
-# sudo apt-get -y -o Acquire::ForceIPv4=true -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" update
-# sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Acquire::ForceIPv4=true -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
+sudo apt-get -y -o Acquire::ForceIPv4=true -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" update
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o Acquire::ForceIPv4=true -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" upgrade
 
 # Project specific vars
 GITHUB_USER="bracketclub"
@@ -30,7 +30,7 @@ echo 'AddressFamily inet' | sudo tee -a /etc/ssh/sshd_config
 sed -re 's/^(\#)(PasswordAuthentication)([[:space:]]+)(.*)/\2\3\4/' -i.'' /etc/ssh/sshd_config
 sed -re 's/^(PasswordAuthentication)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
 sed -re 's/^(UsePAM)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
-# sed -re 's/^(PermitRootLogin)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
+sed -re 's/^(PermitRootLogin)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
 # nvm/npm/pm2
@@ -64,6 +64,9 @@ echo "TWITTER_SECRET=$TWITTER_SECRET" >> .env
 echo "TWITTER_TOKEN=$TWITTER_TOKEN" >> .env
 echo "TWITTER_TOKEN_SECRET=$TWITTER_TOKEN_SECRET" >> .env
 echo "POSTGRES_URL=$POSTGRES_URL" >> .env
+
+# Make it user accessible
+chown -R "$GITHUB_USER":"$GITHUB_USER" $APP_DIR/
 
 # All done
 echo "Success!"
