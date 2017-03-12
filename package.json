@@ -58,6 +58,8 @@
   "scripts": {
     "deploy": "./bin/linode.sh",
     "dump": "./bin/dump.js",
+    "heroku:psql": "heroku pg:psql postgresql-solid-92636 --app tyb-postgres",
+    "heroku:web": "open https://data.heroku.com/datastore/768c0b8c-6f86-451a-8cac-ddc7ec2940b5",
     "insert-by-team": "./bin/insert-by-team.js",
     "integration": "NODE_ENV=test ./bin/integration.sh",
     "lint": "eslint .",

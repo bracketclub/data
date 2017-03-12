@@ -80,10 +80,22 @@ echo "TWITTER_TOKEN_SECRET=$TWITTER_TOKEN_SECRET" >> .env
 echo "POSTGRES_URL=$POSTGRES_URL" >> .env
 ```
 
+## Production Database on Heroku
+
+```sh
+# Open a psql shell
+npm run heroku:psql
+
+# Import current local sql file to production
+npm run heroku:psql < sql/production.sql
+
+# Open webpage to heroku DB
+npm run heroku:web
+```
+
 ## Linode CLI Commands
 
 ```sh
-<<<<<<< HEAD
 # Create or rebuild the linode based on the current stackscript
 # Pass it a path to a public key in order to allow SSH access
 # The .env file will be used to populate vars to the Linode
