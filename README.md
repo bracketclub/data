@@ -84,6 +84,8 @@ echo "POSTGRES_URL=$POSTGRES_URL" >> .env
 
 ```sh
 # Will create or rebuild the linode based on the current stackscript
+# Pass it a path to a public key in order to allow SSH access
+# The .env file will be used to populate vars to the Linode
 npm run deploy build ./linode.pub
 
 # Will update the stackscript
