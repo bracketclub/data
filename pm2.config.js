@@ -15,6 +15,8 @@ const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
   merge_logs: true,
   script: `./watchers/${watcher}.js`,
   name: `${watcher}-${sport}`,
+  min_uptime: '5s',
+  max_restarts: 10,
   env: {
     BC_YEAR: year,
     BC_SPORT: sport,
