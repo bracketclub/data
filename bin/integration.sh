@@ -7,6 +7,7 @@ ARGS=$@
 PIDS=()
 SPORTS=("ncaam" "ncaaw" "nba" "nhl")
 TYPES=("entries" "scores" "users")
+YEAR=`date +%Y`
 
 handler()
 {
@@ -27,9 +28,11 @@ echo "==============================="
 echo "==============================="
 
 for SPORT in "${SPORTS[@]}"; do for TYPE in "${TYPES[@]}"; do
-  echo "node integration/${TYPE} --sport=${SPORT} $ARGS"
-  node integration/${TYPE} --sport=${SPORT} $ARGS &
-  PIDS+=($!)
+  if [ -a "node_modules/bracket-data/data/${SPORT}/${YEAR}.json" ]; then
+    echo "node integration/${TYPE} --sport=${SPORT} --year=${YEAR} $ARGS"
+    node integration/${TYPE} --sport=${SPORT} --year=${YEAR}  $ARGS &
+    PIDS+=($!)
+  fi
 done; done
 
 while true; do sleep 1; done

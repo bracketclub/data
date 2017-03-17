@@ -47,8 +47,6 @@ npm start $WATCHER $SPORT logs
 ```sh
 # Connects to the DB and adds masters/entries/users to all sports every 5 seconds
 npm run integration
-# You can pass other arguments to all integration runners
-npm run integration -- --year 2016
 ```
 
 
