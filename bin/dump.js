@@ -15,6 +15,8 @@ const path = require('path');
 const exec = require('child_process').exec;
 const config = require('getconfig');
 
+const NODE_ENV = process.env.NODE_ENV;
+
  // eslint-disable-next-line no-console
 const log = console.log.bind(console);
 const {getconfig: {env}, postgres} = config;
@@ -41,7 +43,15 @@ if (passwordArg) {
 
 exec(command, (err, resp) => {
   if (err) throw err;
-  const output = path.resolve(__dirname, '..', 'sql', `${env}.sql`);
-  log(`\n${output}`, resp.length);
-  fs.writeFileSync(output, resp);
+
+  const write = (e, data) => {
+    const f = path.resolve(__dirname, '..', 'sql', `${e}.sql`);
+    log(f, data.length);
+    fs.writeFileSync(f, data);
+  };
+
+  write(env, resp);
+  if (NODE_ENV === 'production') {
+    write('development', resp.replace(new RegExp(username, 'g'), 'bracketclub'));
+  }
 });

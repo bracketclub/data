@@ -35,9 +35,9 @@ SET search_path = public, pg_catalog;
 --
 
 CREATE FUNCTION to_yyyy_char(some_time timestamp with time zone) RETURNS text
-	LANGUAGE sql IMMUTABLE
-	AS $_$
-	select to_char($1, 'yyyy');
+    LANGUAGE sql IMMUTABLE
+    AS $_$
+    select to_char($1, 'yyyy');
 $_$;
 
 
@@ -52,11 +52,11 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE entries (
-	id text NOT NULL,
-	bracket text NOT NULL,
-	"user" text NOT NULL,
-	created timestamp with time zone NOT NULL,
-	sport text NOT NULL
+    id text NOT NULL,
+    bracket text NOT NULL,
+    "user" text NOT NULL,
+    created timestamp with time zone NOT NULL,
+    sport text NOT NULL
 );
 
 
@@ -67,10 +67,10 @@ ALTER TABLE entries OWNER TO "bracketclub-test";
 --
 
 CREATE TABLE masters (
-	id integer NOT NULL,
-	created timestamp with time zone NOT NULL,
-	bracket text NOT NULL,
-	sport text NOT NULL
+    id integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    bracket text NOT NULL,
+    sport text NOT NULL
 );
 
 
@@ -81,11 +81,11 @@ ALTER TABLE masters OWNER TO "bracketclub-test";
 --
 
 CREATE SEQUENCE masters_id_seq
-	START WITH 1
-	INCREMENT BY 1
-	NO MINVALUE
-	NO MAXVALUE
-	CACHE 1;
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
 
 
 ALTER TABLE masters_id_seq OWNER TO "bracketclub-test";
@@ -102,10 +102,10 @@ ALTER SEQUENCE masters_id_seq OWNED BY masters.id;
 --
 
 CREATE TABLE users (
-	id text NOT NULL,
-	username text NOT NULL,
-	name text,
-	profile_pic text
+    id text NOT NULL,
+    username text NOT NULL,
+    name text,
+    profile_pic text
 );
 
 
@@ -154,7 +154,7 @@ COPY users (id, username, name, profile_pic) FROM stdin;
 --
 
 ALTER TABLE ONLY entries
-	ADD CONSTRAINT entries_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT entries_pkey PRIMARY KEY (id);
 
 
 --
@@ -162,7 +162,7 @@ ALTER TABLE ONLY entries
 --
 
 ALTER TABLE ONLY masters
-	ADD CONSTRAINT masters_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT masters_pkey PRIMARY KEY (id);
 
 
 --
@@ -170,7 +170,7 @@ ALTER TABLE ONLY masters
 --
 
 ALTER TABLE ONLY users
-	ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
@@ -192,7 +192,21 @@ CREATE UNIQUE INDEX masters_bracket_to_yyyy_char_idx ON masters USING btree (bra
 --
 
 ALTER TABLE ONLY entries
-	ADD CONSTRAINT entries_user_fkey FOREIGN KEY ("user") REFERENCES users(id);
+    ADD CONSTRAINT entries_user_fkey FOREIGN KEY ("user") REFERENCES users(id);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: bracketclub-test
+--
+
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- Name: plpgsql; Type: ACL; Schema: -; Owner: postgres
+--
+
+GRANT ALL ON LANGUAGE plpgsql TO "bracketclub-test";
 
 
 --
