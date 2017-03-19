@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const spawn = require('child_process').spawn;
+const {spawn} = require('child_process');
 const test = require('tape');
 const ms = require('ms');
 
