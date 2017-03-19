@@ -12,10 +12,10 @@ process.env.TWITTER_TOKEN_SECRET = 'null';
 
 const fs = require('fs');
 const path = require('path');
-const exec = require('child_process').exec;
+const {exec} = require('child_process');
 const config = require('getconfig');
 
-const NODE_ENV = process.env.NODE_ENV;
+const {NODE_ENV} = process.env;
 
  // eslint-disable-next-line no-console
 const log = console.log.bind(console);
