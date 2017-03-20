@@ -93,7 +93,7 @@ const updateGames = (currentMaster, teams, cb) => parseDate((err, events) => {
   const missing = games.indexOf(null);
 
   if (missing > -1) {
-    logger.log(missingMessage({events, teams, missing}));
+    logger.debug(missingMessage({events, teams, missing}));
     return cb(new Error('Missing team'));
   }
 
@@ -127,7 +127,7 @@ getCurrent((currentErr, current) => {
 
   updateGames(current, TEAMS, (updateErr, brackets) => {
     if (updateErr) {
-      logger.error('Aboring update');
+      logger.error('Aboring update', updateErr.message);
       return exit();
     }
 
