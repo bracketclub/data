@@ -2,6 +2,8 @@
 
 'use strict';
 
+require('dotenv').config();
+
 const scoresParse = require('scores/lib/parse');
 const async = require('async');
 const config = require('getconfig');

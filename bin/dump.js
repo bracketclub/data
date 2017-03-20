@@ -4,12 +4,6 @@
 
 require('dotenv').config();
 
-// Get around production env vars that might not be set
-process.env.TWITTER_KEY = 'null';
-process.env.TWITTER_SECRET = 'null';
-process.env.TWITTER_TOKEN = 'null';
-process.env.TWITTER_TOKEN_SECRET = 'null';
-
 const fs = require('fs');
 const path = require('path');
 const {exec} = require('child_process');
