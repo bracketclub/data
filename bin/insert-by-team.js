@@ -52,6 +52,9 @@ const normalizeTeamName = (name) => name.toLowerCase().replace(/[^\w\s-]/g, '');
 const matchTeam = (all, team) => all.map(normalizeTeamName).indexOf(normalizeTeamName(team)) > -1;
 const getNames = (team) => (team.names || team.name).map(normalizeTeamName).join('|');
 
+// eslint-disable-next-line no-process-exit
+const exit = () => process.exit(0);
+
 // Of all events find one that matches the team and return relevant event data
 const findGame = (events, team) => {
   const event = events.find((e) => matchTeam(e.home.names, team) || matchTeam(e.away.names, team));
@@ -70,12 +73,11 @@ const findGame = (events, team) => {
 // match the events on the master list
 const missingMessage = ({events, teams, missing}) => {
   const teamsMessage = normalizeTeamName(teams[missing]);
-  const eventsMessage = events.map((e) => `
-    completed: ${e.status.completed}
-    home: ${getNames(e.home)}
-    away: ${getNames(e.away)}
-  `).join('\n\n');
-
+  const eventsMessage = events.map((e) => [
+    `completed: ${e.status.completed}`,
+    `home: ${getNames(e.home)}`,
+    `away: ${getNames(e.away)}`
+  ].join('\n')).join('\n\n');
   return `Could not find completed game for: ${teamsMessage}\n\nPossible values:\n\n${eventsMessage}`;
 };
 
@@ -88,7 +90,10 @@ const updateGames = (currentMaster, teams, cb) => parseDate((err, events) => {
   const games = teams.map((team) => findGame(events, team));
   const missing = games.indexOf(null);
 
-  if (missing > -1) return cb(new Error(missingMessage({events, teams, missing})));
+  if (missing > -1) {
+    logger.log(missingMessage({events, teams, missing}));
+    return cb(new Error('Missing team'));
+  }
 
   logger.log(`Updating for ${games.length} games`);
 
@@ -120,15 +125,14 @@ getCurrent((currentErr, current) => {
 
   updateGames(current, TEAMS, (updateErr, brackets) => {
     if (updateErr) {
-      logger.error('Erroring updating games', updateErr);
-      throw updateErr;
+      logger.error('Aboring update');
+      return exit();
     }
 
     logger.log('Success!');
     brackets.map((b) => logger.log(b));
     logger.log('=============== Restart the score worker! ===============');
 
-    // eslint-disable-next-line no-process-exit
-    process.exit(0);
+    return exit();
   });
 });
