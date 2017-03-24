@@ -13,6 +13,9 @@ const combine = (arr1, arr2) => arr1.reduce((memo, item1) => {
 const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
   exec_mode: 'fork',
   merge_logs: true,
+  log_file: `logs/pm2/${watcher}-${sport}.log`,
+  out_file: `logs/pm2/${watcher}-${sport}-out.log`,
+  error_file: `logs/pm2/${watcher}-${sport}-error.log`,
   script: `./watchers/${watcher}.js`,
   name: `${watcher}-${sport}`,
   min_uptime: '5s',
