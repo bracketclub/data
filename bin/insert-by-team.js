@@ -21,7 +21,8 @@ If any team is not found in scores from DATE/SPORT, all inserts will be aborted.
 const {
   sport,
   date: DATE,
-  teams: TEAMS
+  teams: TEAMS,
+  game: GAME
 } = yargs
   .usage(usage)
   // Date
@@ -34,9 +35,27 @@ const {
   .describe('sport', 'Load scores for this sport')
   // Teams
   .array('teams')
-  .require('teams')
   .describe('teams', 'Completed games will be saved as new brackets in this order')
+  // Game
+  .string('game')
+  .describe('game', 'A string to override checking the actual results')
+  .coerce('game', (val) => {
+    const gameMatch = /^([a-zA-Z]+) (\d+) ([a-zA-Z]+) over (\d+) ([a-zA-Z]+) in (\d+)$/;
+    const match = val.match(gameMatch);
+    if (!match) throw new Error('Game should be: REGION SEED WINNER over SEED LOSER in SERIES');
+    const [, region, winnerSeed, winner, loserSeed, loser, series] = match;
+    return {
+      region,
+      series: {playedCompetitions: series},
+      winner: {name: [winner], seed: winnerSeed},
+      loser: {name: [loser], seed: loserSeed}
+    };
+  })
   .argv;
+
+if (!TEAMS && !GAME) {
+  throw new Error('teams or game is required');
+}
 
 const year = DATE.match(/^\d{4}/)[0];
 const scoreConfig = config.scores[sport];
@@ -83,10 +102,26 @@ const missingMessage = ({events, teams, missing}) => {
   return `Could not find completed game for: ${teamsMessage}\n\nPossible values:\n\n${eventsMessage}`;
 };
 
+const updateGames = (currentMaster, games, cb) => async.map(games, (game, gameCb) => {
+  const {region, winner, loser, series: {playedCompetitions}} = game;
+
+  logger.log(`Updating ${winner.seed} ${winner.name[0]} over ${loser.seed} ${loser.name[0]} from ${region} in ${playedCompetitions}`);
+
+  currentMaster = updater.update({
+    currentMaster,
+    winner,
+    loser,
+    playedCompetitions,
+    fromRegion: region
+  });
+
+  saveMaster(currentMaster, gameCb);
+}, cb);
+
 // Takes the current master and a list of teams and looks through the results
 // for each team. If all teams are found, then it goes through each team in
 // order and inserts each new bracket.
-const updateGames = (currentMaster, teams, cb) => parseDate((err, events) => {
+const updateCurrent = (currentMaster, teams, cb) => parseDate((err, events) => {
   if (err) return cb(err);
 
   const games = teams.map((team) => findGame(events, team));
@@ -99,21 +134,7 @@ const updateGames = (currentMaster, teams, cb) => parseDate((err, events) => {
 
   logger.log(`Updating for ${games.length} games`);
 
-  return async.map(games, (game, gameCb) => {
-    const {region, winner, loser, series: {playedCompetitions}} = game;
-
-    logger.log(`Updating ${winner.seed} ${winner.name[0]} over ${loser.seed} ${loser.name[0]} from ${region} in ${playedCompetitions}`);
-
-    currentMaster = updater.update({
-      currentMaster,
-      winner,
-      loser,
-      playedCompetitions,
-      fromRegion: region
-    });
-
-    saveMaster(currentMaster, gameCb);
-  }, cb);
+  return updateGames(currentMaster, games, cb);
 });
 
 // Run the whole thing
@@ -125,7 +146,7 @@ getCurrent((currentErr, current) => {
 
   logger.log('Starting with', current);
 
-  updateGames(current, TEAMS, (updateErr, brackets) => {
+  const update = (updateErr, brackets) => {
     if (updateErr) {
       logger.error('Aboring update', updateErr.message);
       return exit();
@@ -136,5 +157,12 @@ getCurrent((currentErr, current) => {
     logger.log('=============== Restart the score worker! ===============');
 
     return exit();
-  });
+  };
+
+  if (GAME) {
+    updateGames(current, [GAME], update);
+  }
+  else {
+    updateCurrent(current, TEAMS, update);
+  }
 });
