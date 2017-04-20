@@ -18,7 +18,7 @@ const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
   error_file: `logs/pm2/${watcher}-${sport}-error.log`,
   script: `./watchers/${watcher}.js`,
   name: `${watcher}-${sport}`,
-  min_uptime: '5s',
+  min_uptime: 10000,
   max_restarts: 10,
   env: {
     BC_YEAR: year,
