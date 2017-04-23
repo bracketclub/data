@@ -9,6 +9,7 @@ const async = require('async');
 const config = require('getconfig');
 const Updater = require('bracket-updater');
 const yargs = require('yargs');
+const _ = require('lodash');
 
 const onSaveMaster = require('../lib/saveMaster');
 const createLogger = require('../lib/logger');
@@ -68,7 +69,7 @@ const parseDate = (cb) => scoresParse(scoreConfig.url.replace('{date}', DATE), s
 const getCurrent = (cb) => latestBracket({logger, sport, year}, cb);
 
 // Helpers to normalize team names and seeds
-const transformTeam = (team) => ({seed: team.rank, name: team.names});
+const transformTeam = (team) => _.omitBy({seed: team.rank, name: team.names}, (value) => value == null);
 const normalizeTeamName = (name) => name.toLowerCase().replace(/[^\w\s-]/g, '');
 const matchTeam = (all, team) => all.map(normalizeTeamName).indexOf(normalizeTeamName(team)) > -1;
 const getNames = (team) => (team.names || team.name).map(normalizeTeamName).join('|');
@@ -107,14 +108,17 @@ const updateGames = (currentMaster, games, cb) => async.map(games, (game, gameCb
 
   logger.log(`Updating ${winner.seed} ${winner.name[0]} over ${loser.seed} ${loser.name[0]} from ${region} in ${playedCompetitions}`);
 
-  currentMaster = updater.update({
+  const update = {
     currentMaster,
     winner,
     loser,
     playedCompetitions,
     fromRegion: region
-  });
+  };
 
+  logger.log(JSON.stringify(update));
+
+  currentMaster = updater.update(update);
   saveMaster(currentMaster, gameCb);
 }, cb);
 
