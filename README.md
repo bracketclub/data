@@ -1,6 +1,8 @@
 data
 =================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bracketclub/data.svg)](https://greenkeeper.io/)
+
 The data and DB for [bracket.club](https://bracket.club).
 
 [![Build Status](https://travis-ci.org/bracketclub/data.svg?branch=master)](https://travis-ci.org/bracketclub/data)
