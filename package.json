@@ -31,7 +31,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "git-validate": "^2.2.2",
-    "ms": "^1.0.0",
+    "ms": "^2.0.0",
     "tape": "^4.6.3"
   },
   "engines": {
