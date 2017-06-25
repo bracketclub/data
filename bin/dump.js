@@ -11,7 +11,7 @@ const config = require('getconfig');
 
 const {NODE_ENV} = process.env;
 
- // eslint-disable-next-line no-console
+// eslint-disable-next-line no-console
 const log = console.log.bind(console);
 const {getconfig: {env}, postgres} = config;
 

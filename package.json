@@ -13,8 +13,8 @@
   "dependencies": {
     "@lukekarrys/entry-watcher": "^5.0.6",
     "@lukekarrys/score-watcher": "^5.2.2",
-    "async": "^2.4.0",
-    "bracket-data": "^4.5.18",
+    "async": "^2.4.1",
+    "bracket-data": "^4.5.19",
     "bracket-updater": "^3.4.4",
     "bucker": "^1.1.1",
     "dotenv": "^4.0.0",
@@ -22,13 +22,13 @@
     "lodash": "^4.17.4",
     "pg": "^6.4.0",
     "scores": "^3.5.5",
-    "yargs": "^8.0.1"
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
-    "@lukekarrys/eslint-config": "^4.0.0",
+    "@lukekarrys/eslint-config": "^5.0.0",
     "bracket-generator": "^3.1.0",
     "eslint": "^4.1.0",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-promise": "^3.5.0",
     "git-validate": "^2.2.2",
     "ms": "^2.0.0",
