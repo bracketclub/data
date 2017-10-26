@@ -23,14 +23,15 @@ pgConnect(logger, (client, done) => {
       return;
     }
 
-    new ScoreWatcher(Object.assign({
+    new ScoreWatcher({
       master,
       logger,
       onSave: saveMaster({logger, sport, year}),
       scores: config.scores[sport],
       sport,
-      year
-    }, config.watchers.finder)).start();
+      year,
+      ...config.watchers.finder
+    }).start();
   };
 
   client.query(
