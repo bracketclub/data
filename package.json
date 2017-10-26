@@ -22,7 +22,7 @@
     "lodash": "^4.17.4",
     "pg": "^7.0.2",
     "scores": "^3.5.5",
-    "yargs": "^8.0.2"
+    "yargs": "^10.0.3"
   },
   "devDependencies": {
     "@lukekarrys/eslint-config": "^6.0.4",
