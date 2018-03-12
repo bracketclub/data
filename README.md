@@ -43,6 +43,18 @@ npm start $WATCHER $SPORT logs
 ```
 
 
+## Inserting Initial Bracket
+
+When starting the `entries` watcher you will also want to start and then stop the scores watcher which inserts the initial empty bracket.
+
+```sh
+# Start entry watcher
+npm start entries ncaam
+npm start scores ncaam
+npm start scores ncaam delete
+```
+
+
 ## Integration Tests
 
 ```sh
