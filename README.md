@@ -54,6 +54,10 @@ npm start scores ncaam
 npm start scores ncaam delete
 ```
 
+## Before Starting Scores Watcher
+
+For the score watcher to run properly, each of the teams from `bracket-data` should have a match against wherever the scores are fetched. This can be done inside [`bracket-data`](https://github.com/bracketclub/bracket-data) by cloning that repo and running the `npm run names` command. If there are any names missing, then the `bracket-data` package should be published and pulled into this project before `npm start scores` is run.
+
 
 ## Integration Tests
 
