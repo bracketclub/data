@@ -11,7 +11,7 @@
     "url": "https://bitbucket.org/lukekarrys/data/issues"
   },
   "dependencies": {
-    "@lukekarrys/entry-watcher": "^5.0.6",
+    "@lukekarrys/entry-watcher": "^5.1.1",
     "@lukekarrys/score-watcher": "^5.2.3",
     "async": "^2.4.1",
     "bracket-data": "^4.5.25",
@@ -64,6 +64,7 @@
     "heroku:psql": "heroku pg:psql postgresql-solid-92636 --app tyb-postgres",
     "heroku:web": "open https://data.heroku.com/datastore/768c0b8c-6f86-451a-8cac-ddc7ec2940b5",
     "insert-by-team": "./bin/insert-by-team.js",
+    "find-entry": "./bin/find-entry.js",
     "integration": "NODE_ENV=test ./bin/integration.sh",
     "lint": "eslint .",
     "logs:clean": "rm -rf logs",

@@ -77,6 +77,14 @@ npm run integration
 NODE_ENV=production npm run insert-by-team -- --sport ncaaw --teams uconn "notre dame"
 ```
 
+
+## So you missed an entry tweet
+
+```sh
+NODE_ENV=production npm run find-entry -- --sport ncaam --year 2018 --tweet TWEET_ID
+```
+
+
 ## Dumping a database
 
 ```sh
