@@ -7,12 +7,5 @@
     }
   },
 
-  "twitter": {
-    "consumer_key": "$TWITTER_KEY",
-    "consumer_secret": "$TWITTER_SECRET",
-    "access_token": "$TWITTER_TOKEN",
-    "access_token_secret": "$TWITTER_TOKEN_SECRET"
-  },
-
   "postgres": "$POSTGRES_URL"
 }
