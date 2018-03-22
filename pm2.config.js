@@ -26,6 +26,7 @@ const apps = combine(WATCHERS, SPORTS).map(([watcher, sport]) => ({
     NODE_ENV: 'development'
   },
   env_production: {
+    PM2_ENV: true,
     NODE_ENV: 'production'
   }
 }));
