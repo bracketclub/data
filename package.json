@@ -59,8 +59,12 @@
     "url": "git://bitbucket.org/lukekarrys/data.git"
   },
   "scripts": {
+    "reset-db": "./bin/db.sh",
+    "reset-db:test": "npm run reset-db -- bracketclub-test test",
+    "reset-db:dev": "npm run reset-db -- bracketclub development",
     "deploy": "./bin/linode.sh",
     "dump": "./bin/dump.js",
+    "dump:prod-to-dev": "NODE_ENV=production npm run dump && npm run reset-db:dev && npm run dump",
     "heroku:psql": "heroku pg:psql postgresql-solid-92636 --app tyb-postgres",
     "heroku:web": "open https://data.heroku.com/datastore/768c0b8c-6f86-451a-8cac-ddc7ec2940b5",
     "insert-by-team": "./bin/insert-by-team.js",

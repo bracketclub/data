@@ -9,11 +9,12 @@ const path = require('path');
 const {exec} = require('child_process');
 const config = require('getconfig');
 
-const {NODE_ENV} = process.env;
-
 // eslint-disable-next-line no-console
 const log = console.log.bind(console);
 const {getconfig: {env}, postgres} = config;
+
+let nodeEnv = env;
+if (nodeEnv.startsWith('dev')) nodeEnv = 'development';
 
 const connection = /^postgres:\/\/(\w*)(:\w*)?@([\w\-.]*)(:\d*)?\/([\w-]*)(\?.*)?$/;
 const [, username, password, host, port, database] = postgres.match(connection) || [];
@@ -44,8 +45,8 @@ exec(command, (err, resp) => {
     fs.writeFileSync(f, data);
   };
 
-  write(env, resp);
-  if (NODE_ENV === 'production') {
+  write(nodeEnv, resp);
+  if (nodeEnv === 'production') {
     write('development', resp.replace(new RegExp(username, 'g'), 'bracketclub'));
   }
 });
