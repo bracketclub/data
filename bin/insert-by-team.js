@@ -132,7 +132,7 @@ const updateCurrent = (currentMaster, teams, cb) => parseDate((err, events) => {
   const missing = games.indexOf(null);
 
   if (missing > -1) {
-    logger.debug(missingMessage({events, teams, missing}));
+    logger.warn(missingMessage({events, teams, missing}));
     return cb(new Error('Missing team'));
   }
 

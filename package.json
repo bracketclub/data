@@ -11,8 +11,8 @@
     "url": "https://bitbucket.org/lukekarrys/data/issues"
   },
   "dependencies": {
-    "@lukekarrys/entry-watcher": "^5.1.2",
-    "@lukekarrys/score-watcher": "^5.2.3",
+    "@lukekarrys/entry-watcher": "^5.1.3",
+    "@lukekarrys/score-watcher": "^5.2.4",
     "async": "^2.4.1",
     "bracket-data": "^4.5.25",
     "bracket-updater": "^3.4.4",
@@ -21,7 +21,7 @@
     "getconfig": "^4.4.1",
     "lodash": "^4.17.4",
     "pg": "^7.0.2",
-    "scores": "^3.9.1",
+    "scores": "^3.9.2",
     "yargs": "^10.0.3"
   },
   "devDependencies": {
