@@ -3,7 +3,17 @@
 
   "watchers": {
     "logOptions": {
-      "file": "./logs/:type.log"
+      "level": "info",
+      "console": {
+        "color": false
+      },
+      "app": {
+        "file": {
+          "filename": "./logs/:type.log",
+          "format": ":time :level :data",
+          "timestamp": "HH:mm:ss"
+        }
+      }
     }
   },
 

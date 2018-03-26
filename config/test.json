@@ -1,5 +1,13 @@
 {
   "isDev": false,
 
+  "watchers": {
+    "logOptions": {
+      "app": {
+        "file": false
+      }
+    }
+  },
+
   "postgres": "postgres://bracketclub-test@localhost/bracketclub-test"
 }
