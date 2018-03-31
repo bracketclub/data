@@ -119,6 +119,12 @@ const updateGames = (currentMaster, games, cb) => async.map(games, (game, gameCb
   logger.log(JSON.stringify(update));
 
   currentMaster = updater.update(update);
+
+  if (currentMaster instanceof Error) {
+    gameCb(currentMaster);
+    return;
+  }
+
   saveMaster(currentMaster, gameCb);
 }, cb);
 
