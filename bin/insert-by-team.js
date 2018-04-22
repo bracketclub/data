@@ -41,7 +41,7 @@ const {
   .string('game')
   .describe('game', 'A string to override checking the actual results')
   .coerce('game', (val) => {
-    const gameMatch = /^([a-zA-Z]+) (\d+) ([a-zA-Z]+) over (\d+) ([a-zA-Z]+) in (\d+)$/;
+    const gameMatch = /^([a-zA-Z]+) (\d+) ?([a-zA-Z]+)? over (\d+) ?([a-zA-Z]+)? in (\d+)$/;
     const match = val.match(gameMatch);
     if (!match) throw new Error('Game should be: REGION SEED WINNER over SEED LOSER in SERIES');
     const [, region, winnerSeed, winner, loserSeed, loser, series] = match;
