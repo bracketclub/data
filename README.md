@@ -20,6 +20,8 @@ The data and DB for [bracket.club](https://bracket.club).
 - `ncaaw`
 - `nba`
 - `nhl`
+- `wcm`
+- `wcw`
 
 ```sh
 node watchers/$WATCHER --sport=$SPORT --year=$YEAR

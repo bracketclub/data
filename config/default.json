@@ -58,6 +58,22 @@
         "finalPeriod": 3,
         "periodLength": "20m"
       }
+    },
+    "wcm": {
+      "interval": "1m",
+      "url": "http://www.espn.com/soccer/scoreboard/_/league/FIFA.WORLD/date/{date}",
+      "parse": {
+        "finalPeriod": 2,
+        "periodLength": "45m"
+      }
+    },
+    "wcw": {
+      "interval": "1m",
+      "url": "http://www.espn.com/soccer/scoreboard/_/league/FIFA.WWC/date/{date}",
+      "parse": {
+        "finalPeriod": 2,
+        "periodLength": "45m"
+      }
     }
   }
 }

@@ -5,6 +5,7 @@ echo "Clearing test DB"
 
 ARGS=$@
 PIDS=()
+# TODO: add wcm once there is data
 SPORTS=("ncaam" "ncaaw" "nba" "nhl")
 TYPES=("entries" "scores" "users")
 YEAR=`date +%Y`

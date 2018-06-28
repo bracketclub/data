@@ -2,7 +2,7 @@
 
 const year = new Date().getFullYear();
 const WATCHERS = ['entries', 'scores'];
-const SPORTS = ['ncaam', 'ncaaw', 'nba', 'nhl'];
+const SPORTS = ['ncaam', 'ncaaw', 'nba', 'nhl', 'wcm', 'wcw'];
 
 const combine = (arr1, arr2) => arr1.reduce((memo, item1) => {
   arr2.forEach((item2) => memo.push([item1, item2]));
