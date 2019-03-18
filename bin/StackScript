@@ -39,7 +39,7 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | N
 export NVM_DIR=$GLOBAL_NVM_DIR
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm install 8.8.1
-npm install -g pm2
+npm install -g pm2@2.10.4
 
 # Add user
 cp /root/.bashrc /etc/skel/.bashrc

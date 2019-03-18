@@ -33,7 +33,7 @@ elif [ "$COMMAND" == "build" ]; then
   linode --action $BUILD_COMMAND \
     --label "$LINODE" \
     --location fremont \
-    --plan linode1024 \
+    --plan "Nanode 1GB" \
     --distribution "$DISTRO" \
     --pubkey-file "$KEY" \
     --stackscript "$SCRIPT" \

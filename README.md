@@ -124,3 +124,14 @@ npm run deploy ip
 # Delete linode
 npm run deploy delete
 ```
+
+## Rough Steps to Launch Each Year
+
+- Update and publish `bracket-data` with new year and teams
+- `npm install bracket-data@latest --save` in web app and this repo
+- Update web app config with new year
+- Locally: `npm run dump:prod-to-dev`
+- Locally: `node watchers/entries --sport=$SPORT --year=$YEAR`
+- Start `api` and postgres locally
+- Run webapp and make sure everything renders
+- Deploy to Linode
