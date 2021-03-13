@@ -14,13 +14,13 @@
     "@lukekarrys/entry-watcher": "^5.1.5",
     "@lukekarrys/score-watcher": "^5.2.4",
     "async": "^2.4.1",
-    "bracket-data": "^4.5.41",
+    "bracket-data": "^4.6.3",
     "bracket-updater": "^3.4.7",
     "bucker": "^1.1.1",
     "dotenv": "^4.0.0",
     "getconfig": "^4.4.1",
     "lodash": "^4.17.4",
-    "pg": "^7.0.2",
+    "pg": "^8.5.1",
     "scores": "^3.9.3",
     "yargs": "^10.0.3"
   },
@@ -37,7 +37,8 @@
     "tape": "^4.6.3"
   },
   "engines": {
-    "node": "^6"
+    "node": "^14.15.5",
+    "npm": "^6.14.11"
   },
   "homepage": "https://bitbucket.org/lukekarrys/data",
   "keywords": [
@@ -65,7 +66,7 @@
     "deploy": "./bin/linode.sh",
     "dump": "./bin/dump.js",
     "dump:prod-to-dev": "NODE_ENV=production npm run dump && npm run reset-db:dev && npm run dump",
-    "heroku:psql": "heroku pg:psql postgresql-solid-92636 --app tyb-postgres",
+    "heroku:psql": "heroku pg:psql postgresql-solid-92636 --app bracketclub",
     "heroku:web": "open https://data.heroku.com/datastore/768c0b8c-6f86-451a-8cac-ddc7ec2940b5",
     "insert-by-team": "./bin/insert-by-team.js",
     "find-entry": "./bin/find-entry.js",
