@@ -4,8 +4,6 @@ data
 The data and DB for [bracket.club](https://bracket.club).
 
 [![Build Status](https://travis-ci.org/bracketclub/data.svg?branch=master)](https://travis-ci.org/bracketclub/data)
-[![Greenkeeper badge](https://badges.greenkeeper.io/bracketclub/data.svg)](https://greenkeeper.io/)
-
 
 ## Running each watcher
 
@@ -31,7 +29,8 @@ node watchers/$WATCHER --sport=$SPORT --year=$YEAR
 ## Via pm2
 
 ```sh
-# Any command run through this npm run-script will use NODE_ENV=production
+# Any command run through this npm run-script will use check the hostname==localhost
+# to see if it should run in PRODUCTION mode. You can also pass NODE_ENV=production to force it
 # They will also use the current year for $YEAR
 
 # Start only one
