@@ -33,6 +33,9 @@ sed -re 's/^(UsePAM)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
 sed -re 's/^(PermitRootLogin)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
+# Phoenix time
+sudo timedatectl set-timezone America/Phoenix
+
 # nvm/npm
 GLOBAL_NVM_DIR="/usr/local/nvm"
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | NVM_DIR=$GLOBAL_NVM_DIR bash
