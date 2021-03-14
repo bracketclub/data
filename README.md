@@ -113,7 +113,7 @@ npm run heroku:web
 # Create or rebuild the linode based on the current stackscript
 # Pass it a path to a public key in order to allow SSH access
 # The .env file will be used to populate vars to the Linode
-npm run deploy build ./linode.pub
+npm run deploy build
 
 # Update the stackscript with whats in the repo
 npm run deploy stackscript
@@ -134,7 +134,7 @@ npm run deploy delete
 - Locally: `node watchers/entries --sport=$SPORT --year=$YEAR`
 - Start `api` and postgres locally
 - Run webapp and make sure everything renders
-- Deploy to Linode `npm run deploy build ./linode.pub`
+- Deploy to Linode `npm run deploy build`
 - `ssh` into linode and run `cd data; npm start entries ncaam`
 - Locally test that logs work: `ssh bc "cat ~/data/logs/pm2/entries-ncaam.log"`
 

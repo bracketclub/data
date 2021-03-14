@@ -4,7 +4,7 @@ COMMAND=$1
 
 LABEL="bracketclub"
 
-STACKSCRIPT_ID=$(linode-cli stackscripts list --label "$LABEL" --json | ./node_modules/.bin/json 0.id)
+STACKSCRIPT_ID=$(linode-cli stackscripts list --is_public false --label "$LABEL" --json | ./node_modules/.bin/json 0.id)
 LINODE=$(linode-cli linodes list --label $LABEL --json)
 LINODE_ID=$(echo $LINODE | ./node_modules/.bin/json 0.id)
 

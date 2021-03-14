@@ -33,13 +33,12 @@ sed -re 's/^(UsePAM)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
 sed -re 's/^(PermitRootLogin)([[:space:]]+)yes/\1\2no/' -i.'' /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
-# nvm/npm/pm2
+# nvm/npm
 GLOBAL_NVM_DIR="/usr/local/nvm"
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | NVM_DIR=$GLOBAL_NVM_DIR bash
 export NVM_DIR=$GLOBAL_NVM_DIR
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 nvm install 14.15.5
-npm install -g pm2@2.10.4
 
 # Add user
 cp /root/.bashrc /etc/skel/.bashrc
