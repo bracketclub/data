@@ -126,6 +126,7 @@ npm run deploy delete
 
 ## Rough Steps to Launch Each Year
 
+### For Entries
 - Update and publish `bracket-data` with new year and teams
 - `npm install bracket-data@latest --save` in web app and this repo
 - Update web app config with new year
@@ -137,3 +138,8 @@ npm run deploy delete
 - `ssh` into linode and run `cd data; npm start entries ncaam`
 - Locally test that logs work: `ssh bc "cat ~/data/logs/pm2/entries-ncaam.log"`
 
+### For Scores
+- Go to `bracket data` and check `npm run names` works to ensure that the names in `bracket-data` all match the scoreboard
+- Go to `scores` and check that the tests pass, especially the ones getting data directly from urls. If anything breaks, fix and write new tests
+- Try running `npm start scores ncaam` locally once the first games start
+- `ssh` into linode and run `cd data; npm start scores ncaam`
