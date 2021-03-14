@@ -33,6 +33,7 @@
     "eslint-plugin-prefer-object-spread": "^1.2.1",
     "eslint-plugin-promise": "^3.5.0",
     "git-validate": "^2.2.2",
+    "json": "^10.0.0",
     "ms": "^2.0.0",
     "tape": "^4.6.3"
   },

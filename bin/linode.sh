@@ -1,42 +1,76 @@
 #!/usr/bin/env bash
 
 COMMAND=$1
-KEY=$2
 
-LINODE="bracketclub"
-DISTRO="Ubuntu 16.04 LTS"
-SCRIPT="Bracket Data"
+LABEL="bracketclub"
+
+STACKSCRIPT_ID=$(linode-cli stackscripts list --label "$LABEL" --json | ./node_modules/.bin/json 0.id)
+LINODE=$(linode-cli linodes list --label $LABEL --json)
+LINODE_ID=$(echo $LINODE | ./node_modules/.bin/json 0.id)
 
 if [ "$COMMAND" == "delete" ]; then
-  echo "Deleting $LINODE"
-  linode delete $LINODE
-elif [ "$COMMAND" == "stackscript" ]; then
-  echo "Updating StackScript $SCRIPT"
-  linode stackscript \
-    --action update \
-    --label "$SCRIPT" \
-    --codefile ./bin/StackScript \
-    --distribution "$DISTRO"
-elif [ "$COMMAND" == "ip" ]; then
-  linode show --label $LINODE | grep ips | awk '{print $2}'
-elif [ "$COMMAND" == "show" ]; then
-  linode show --label $LINODE
-elif [ "$COMMAND" == "build" ]; then
-  linode show --label $LINODE
-  LINODE_EXISTS=$?
-  if [ "$LINODE_EXISTS" == "0" ]; then
-    BUILD_COMMAND="rebuild"
+  ## =============
+  ## Delete Linode
+  ## ===========
+
+  if [ "$LINODE_ID" == "" ]; then
+    echo "No Linode found to delete"
   else
-    BUILD_COMMAND="create"
+    echo "Deleting $LINODE_ID"
+    linode-cli linodes delete "$LINODE_ID"
   fi
-  echo "$BUILD_COMMAND $LINODE"
-  linode --action $BUILD_COMMAND \
-    --label "$LINODE" \
-    --location fremont \
-    --plan "Nanode 1GB" \
-    --distribution "$DISTRO" \
-    --pubkey-file "$KEY" \
-    --stackscript "$SCRIPT" \
-    --stackscriptjson `node -e "process.stdout.write(JSON.stringify(require('fs').readFileSync('./.env').toString().split('\n').filter(Boolean).map((l) => l.split('=')).reduce((a, i) => (a[i[0]] = i[1], a), {})))"` \
-    --password `dd bs=32 count=1 if="/dev/urandom" | base64 | tr +/ _.`
+
+elif [ "$COMMAND" == "stackscript" ]; then
+  ## =============
+  ## Update StackScript
+  ## ===========
+
+  if [ "$STACKSCRIPT_ID" == "" ]; then
+    echo "No StackScript found to update"
+  else
+    echo "Updating StackScript $STACKSCRIPT_ID"
+    linode-cli stackscripts update "$STACKSCRIPT_ID" --script ./bin/StackScript
+  fi
+
+elif [ "$COMMAND" == "ip" ]; then
+  ## =============
+  ## Show Linode IP
+  ## ===========
+
+  echo $LINODE | ./node_modules/.bin/json 0.ipv4.0
+  
+elif [ "$COMMAND" == "show" ]; then
+  ## =============
+  ## Show Linode data
+  ## ===========
+
+  echo $LINODE | ./node_modules/.bin/json 0
+
+elif [ "$COMMAND" == "build" ]; then
+  ## =============
+  ## Rebuild or create Linode
+  ## ===========
+
+  if [ "$LINODE_ID" == "" ]; then
+    echo "Creating Linode"
+    linode-cli linodes create \
+      --no-defaults \
+      --region "us-west" \
+      --type "g6-nanode-1" \
+      --label "$LABEL" \
+      --authorized_keys "$(cat ./linode.pub)" \
+      --image "linode/ubuntu16.04lts" \
+      --stackscript_id "$STACKSCRIPT_ID" \
+      --stackscript_data "$(./bin/stack-script-json.js)" \
+      --root_pass "$(./bin/password.js)"
+  else
+    echo "Rebuilding Linode with $LINODE_ID"
+    linode-cli linodes rebuild "$LINODE_ID" \
+      --no-defaults \
+      --authorized_keys "$(cat ./linode.pub)" \
+      --image "linode/ubuntu16.04lts" \
+      --stackscript_id "$STACKSCRIPT_ID" \
+      --stackscript_data "$(./bin/stack-script-json.js)" \
+      --root_pass "$(./bin/password.js)"
+  fi
 fi
