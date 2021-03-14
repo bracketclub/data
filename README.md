@@ -137,6 +137,7 @@ npm run deploy delete
 - Deploy to Linode `npm run deploy build`
 - `ssh` into linode and run `cd data; npm start entries ncaam`
 - Locally test that logs work: `ssh bc "cat ~/data/logs/pm2/entries-ncaam.log"`
+- Run this once and then stop it as it seeds the first master bracket `npm start scores ncaam`
 
 ### For Scores
 - Go to `bracket data` and check `npm run names` works to ensure that the names in `bracket-data` all match the scoreboard
