@@ -174,13 +174,6 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: entries_bracket_to_yyyy_char_idx; Type: INDEX; Schema: public; Owner: bracketclub-test
---
-
-CREATE UNIQUE INDEX entries_bracket_to_yyyy_char_idx ON entries USING btree (bracket, sport, to_yyyy_char(created));
-
-
---
 -- Name: masters_bracket_to_yyyy_char_idx; Type: INDEX; Schema: public; Owner: bracketclub-test
 --
 
