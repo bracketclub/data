@@ -14,7 +14,7 @@
     "@lukekarrys/entry-watcher": "^5.1.5",
     "@lukekarrys/score-watcher": "^5.2.4",
     "async": "^2.4.1",
-    "bracket-data": "^4.6.5",
+    "bracket-data": "^4.6.8",
     "bracket-updater": "^3.4.7",
     "bucker": "^1.1.1",
     "dotenv": "^4.0.0",
