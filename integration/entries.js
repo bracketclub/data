@@ -13,9 +13,9 @@ const logger = createLogger(`entries-${id}`);
 const saveEntry = createSaveEntry({logger, sport, year});
 const bracket = new Generator({sport, year});
 
-const A = 65;
 const numbers = () => Math.random().toString().slice(2);
-const letters = () => numbers().split('').map((n) => String.fromCharCode(parseInt(n, 10) + A)).join('');
+// eslint-disable-next-line no-magic-numbers
+const letters = () => numbers().split('').map((n) => String.fromCharCode(parseInt(n, 10) + 65)).join('');
 
 logger.log(`Starting entries:${id}`);
 
