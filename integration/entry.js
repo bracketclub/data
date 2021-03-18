@@ -14,6 +14,7 @@ const bracket = new Generator({ sport, year });
 
 const numbers = () => Math.random().toString().slice(2);
 
+// eslint-disable-next-line no-unused-vars
 const letters = () =>
   numbers()
     .split("")
@@ -23,12 +24,12 @@ const letters = () =>
 
 logger.log(`Adding entry: ${id}`);
 
-const name = letters();
+const name = "lukekarrys";
 
 /* eslint-disable camelcase */
 saveEntry({
   data_id: numbers(),
-  user_id: numbers(),
+  user_id: "1107677430418800642",
   username: name,
   name,
   profile_pic: "",
