@@ -2,6 +2,6 @@ dist: trusty
 language: node_js
 node_js:
   - 14
-script: npm test && npm run lint && npm run validate
+script: npm test && npm run lint
 addons:
   postgresql: "9.6"
