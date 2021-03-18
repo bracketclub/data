@@ -1,5 +1,4 @@
-data
-=================
+# data
 
 The data and DB for [bracket.club](https://bracket.club).
 
@@ -25,7 +24,6 @@ The data and DB for [bracket.club](https://bracket.club).
 node watchers/$WATCHER --sport=$SPORT --year=$YEAR
 ```
 
-
 ## Via pm2
 
 ```sh
@@ -43,11 +41,9 @@ npm start $WATCHER $SPORT delete
 npm start $WATCHER $SPORT logs
 ```
 
-
 ## Before Starting Scores Watcher
 
 For the score watcher to run properly, each of the teams from `bracket-data` should have a match against wherever the scores are fetched. This can be done inside [`bracket-data`](https://github.com/bracketclub/bracket-data) by cloning that repo and running the `npm run names` command. If there are any names missing, then the `bracket-data` package should be published and pulled into this project before `npm start scores` is run.
-
 
 ## Integration Tests
 
@@ -55,7 +51,6 @@ For the score watcher to run properly, each of the teams from `bracket-data` sho
 # Connects to the DB and adds masters/entries/users to all sports every 5 seconds
 npm run integration
 ```
-
 
 ## So you missed a finished score in production
 
@@ -67,13 +62,11 @@ npm run integration
 NODE_ENV=production npm run insert-by-team -- --sport ncaaw --teams uconn "notre dame"
 ```
 
-
 ## So you missed an entry tweet
 
 ```sh
 NODE_ENV=production npm run find-entry -- --sport ncaam --year 2018 --tweet TWEET_ID
 ```
-
 
 ## Dumping a database
 
@@ -127,6 +120,7 @@ npm run deploy delete
 ## Rough Steps to Launch Each Year
 
 ### For Entries
+
 - Update and publish `bracket-data` with new year and teams
 - `npm install bracket-data@latest --save` in web app and this repo
 - Update web app config with new year
@@ -140,6 +134,7 @@ npm run deploy delete
 - Run this once and then stop it as it seeds the first master bracket `npm start scores ncaam`
 
 ### For Scores
+
 - Go to `bracket data` and check `npm run names` works to ensure that the names in `bracket-data` all match the scoreboard
 - Go to `scores` and check that the tests pass, especially the ones getting data directly from urls. If anything breaks, fix and write new tests
 - Try running `npm start scores ncaam` locally once the first games start

@@ -28,6 +28,7 @@
     "@lukekarrys/eslint-config": "^6.0.4",
     "bracket-generator": "^3.1.1",
     "eslint": "^4.1.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-mysticatea": "^4.2.4",
     "eslint-plugin-prefer-object-spread": "^1.2.1",
@@ -36,6 +37,7 @@
     "json": "^10.0.0",
     "ms": "^2.0.0",
     "pm2": "^4.5.5",
+    "prettier": "^2.2.1",
     "tape": "^4.6.3"
   },
   "engines": {
@@ -53,8 +55,7 @@
   "main": "index.js",
   "pre-commit": [
     "test",
-    "lint",
-    "validate"
+    "lint"
   ],
   "private": true,
   "repository": {
@@ -73,10 +74,9 @@
     "insert-by-team": "./bin/insert-by-team.js",
     "find-entry": "./bin/find-entry.js",
     "integration": "NODE_ENV=test ./bin/integration.sh",
-    "lint": "eslint .",
+    "lint": "prettier -l . && eslint .",
     "logs:clean": "rm -rf logs",
     "start": "./bin/pm2.sh",
-    "test": "NODE_ENV=test tape test/*.js",
-    "validate": "npm ls"
+    "test": "NODE_ENV=test tape test/*.js"
   }
 }

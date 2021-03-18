@@ -1,31 +1,33 @@
-'use strict';
+"use strict";
 
-require('dotenv').config();
+require("dotenv").config();
 
-const ScoreWatcher = require('@lukekarrys/score-watcher');
-const config = require('getconfig');
+const ScoreWatcher = require("@lukekarrys/score-watcher");
+const config = require("getconfig");
 
-const initialBracket = require('../lib/initialBracket');
-const saveMaster = require('../lib/saveMaster');
-const pgConnect = require('../lib/pgConnect');
-const createLogger = require('../lib/logger');
-const {sport, year, id} = require('../lib/sportYear');
+const initialBracket = require("../lib/initialBracket");
+const saveMaster = require("../lib/saveMaster");
+const pgConnect = require("../lib/pgConnect");
+const createLogger = require("../lib/logger");
+const { sport, year, id } = require("../lib/sportYear");
 
 const logger = createLogger(`scores-${id}`);
 
-pgConnect(logger, (client, done) => initialBracket({logger, sport, year}, (err, master) => {
-  if (err) {
-    logger.error(`Error starting score watcher: ${err}`);
-    return;
-  }
+pgConnect(logger, (client, done) =>
+  initialBracket({ logger, sport, year }, (err, master) => {
+    if (err) {
+      logger.error(`Error starting score watcher: ${err}`);
+      return;
+    }
 
-  new ScoreWatcher({
-    master,
-    logger,
-    onSave: saveMaster({logger, sport, year}),
-    scores: config.scores[sport],
-    sport,
-    year,
-    ...config.watchers.finder
-  }).start();
-}));
+    new ScoreWatcher({
+      master,
+      logger,
+      onSave: saveMaster({ logger, sport, year }),
+      scores: config.scores[sport],
+      sport,
+      year,
+      ...config.watchers.finder,
+    }).start();
+  })
+);
