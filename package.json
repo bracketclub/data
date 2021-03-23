@@ -21,7 +21,7 @@
     "getconfig": "^4.4.1",
     "lodash": "^4.17.4",
     "pg": "^8.5.1",
-    "scores": "^3.9.3",
+    "scores": "^3.9.4",
     "yargs": "^10.0.3"
   },
   "devDependencies": {
