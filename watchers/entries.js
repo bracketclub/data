@@ -2,8 +2,8 @@
 
 require("dotenv").config();
 
-const EntryWatcher = require("@lukekarrys/entry-watcher");
 const config = require("getconfig");
+const EntryWatcher = require("./entry-watcher");
 
 const initialBracket = require("../lib/initialBracket");
 const onSave = require("../lib/saveEntry");

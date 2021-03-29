@@ -2,8 +2,8 @@
 
 require("dotenv").config();
 
-const ScoreWatcher = require("@lukekarrys/score-watcher");
 const config = require("getconfig");
+const ScoreWatcher = require("./score-watcher");
 
 const initialBracket = require("../lib/initialBracket");
 const saveMaster = require("../lib/saveMaster");
