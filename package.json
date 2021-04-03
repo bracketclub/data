@@ -11,8 +11,6 @@
     "url": "https://bitbucket.org/lukekarrys/data/issues"
   },
   "dependencies": {
-    "@lukekarrys/entry-watcher": "^5.1.5",
-    "@lukekarrys/score-watcher": "^5.2.4",
     "async": "^2.4.1",
     "bracket-data": "^4.6.10",
     "bracket-updater": "^3.4.7",
