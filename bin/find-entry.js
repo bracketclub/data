@@ -4,9 +4,9 @@
 
 require("dotenv").config();
 
-const EntryWatcher = require("@lukekarrys/entry-watcher");
 const config = require("getconfig");
 const yargs = require("yargs");
+const EntryWatcher = require("../watchers/entry-watcher");
 
 const onSave = require("../lib/saveEntry");
 const createLogger = require("../lib/logger");
