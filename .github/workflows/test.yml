@@ -9,10 +9,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:13
+        image: postgres
         env:
           POSTGRES_USER: bracketclub-test
           POSTGRES_DB: bracketclub-test
+          POSTGRES_PASSWORD: bracketclub-test
         ports:
           - 5432:5432
         options: >-

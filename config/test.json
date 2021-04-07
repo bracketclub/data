@@ -9,5 +9,5 @@
     }
   },
 
-  "postgres": "postgres://bracketclub-test@localhost/bracketclub-test"
+  "postgres": "postgres://bracketclub-test:bracketclub-test@localhost/bracketclub-test"
 }
