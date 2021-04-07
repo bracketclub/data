@@ -41,3 +41,5 @@ jobs:
       - name: Test
         run: |
           npm test
+        env:
+          PGPASSWORD: bracketclub-test
