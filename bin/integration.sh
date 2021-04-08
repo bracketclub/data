@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 echo "Clearing test DB"
-./bin/db.sh bracketclub-test test
+# ./bin/db.sh bracketclub-test test
+psql -f sql/test.sql
 
 ARGS=$@
 PIDS=()

@@ -12,8 +12,8 @@ jobs:
         image: postgres
         env:
           POSTGRES_USER: bracketclub-test
-          POSTGRES_DB: bracketclub-test
           POSTGRES_PASSWORD: bracketclub-test
+          POSTGRES_DB: bracketclub-test
         ports:
           - 5432:5432
         options: >-
@@ -42,4 +42,6 @@ jobs:
         run: |
           npm test
         env:
+          PGUSER: bracketclub-test
           PGPASSWORD: bracketclub-test
+          PGDATABASE: bracketclub-test

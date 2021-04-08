@@ -7,6 +7,7 @@ const ms = require("ms");
 
 const start = (...args) =>
   spawn(path.join(__dirname, "..", "bin", "integration.sh"), args);
+
 const logData = (data) =>
   data
     .toString()
