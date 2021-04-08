@@ -9,5 +9,5 @@
     }
   },
 
-  "postgres": "postgres://${PGUSER}:${PGPASSWORD}@localhost/${PGDATABASE}"
+  "postgres": "postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}"
 }
