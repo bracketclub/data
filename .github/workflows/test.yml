@@ -45,3 +45,4 @@ jobs:
           PGUSER: bracketclub-test
           PGPASSWORD: bracketclub-test
           PGDATABASE: bracketclub-test
+          PGHOST: localhost
