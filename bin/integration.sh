@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-echo "Clearing test DB"
-# ./bin/db.sh bracketclub-test test
-psql -f sql/test.sql
+
+
+if [[ -z "${CI}" ]]; then
+  echo "Clearing test DB"
+  ./bin/db.sh bracketclub-test test
+else
+  echo "Seeding test DB"
+  psql -f sql/test.sql
+fi
 
 ARGS=$@
 PIDS=()
