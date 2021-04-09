@@ -74,7 +74,7 @@
     "heroku:psql": "heroku pg:psql postgresql-solid-92636 --app bracketclub",
     "heroku:web": "open https://data.heroku.com/datastore/768c0b8c-6f86-451a-8cac-ddc7ec2940b5",
     "insert-by-team": "./bin/insert-by-team.js",
-    "integration": "PGUSER=lukekarrys PGPASSWORD=lukekarrys NODE_ENV=test NODE_ENV=test ./bin/integration.sh",
+    "integration": "NODE_ENV=test ./bin/integration.sh",
     "lint": "prettier -l . && eslint .",
     "logs:clean": "rm -rf logs",
     "reset-db": "./bin/db.sh",
@@ -82,7 +82,7 @@
     "reset-db:test": "npm run reset-db -- bracketclub-test test",
     "start": "./bin/pm2.sh",
     "test": "npm run test:integration && npm run test:entries && npm run test:scores && npm run test:finder",
-    "test:integration": "PGUSER=lukekarrys PGPASSWORD=lukekarrys NODE_ENV=test tape test/*.js ",
+    "test:integration": "NODE_ENV=test tape test/*.js ",
     "test:entries": "mocha -c -u bdd -R spec --timeout 15000 watchers/entry-watcher/test/*.js",
     "test:finder": "mocha -c -u bdd -R spec --timeout 10000 watchers/bracket-finder/test/*.js",
     "test:scores": "tape watchers/score-watcher/test/test.js | tap-spec"

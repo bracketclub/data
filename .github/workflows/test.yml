@@ -42,9 +42,10 @@ jobs:
         run: |
           npm test
         env:
-          # These need to be set individually so they
+          # These *all* need to be set individually so they
           # are picked up when running psql -f sql/test.sql
-          # to seed the test database
+          # to seed the test database. Some are also reused
+          # in config/test.json
           PGUSER: bracketclub-test
           PGPASSWORD: bracketclub-test
           PGDATABASE: bracketclub-test
