@@ -19,7 +19,7 @@
     "dotenv": "^4.0.0",
     "getconfig": "^4.5.0",
     "lodash": "^4.17.4",
-    "moment": "^2.21.0",
+    "moment": "^2.29.2",
     "pg": "^8.5.1",
     "scores": "^3.9.4",
     "simple-realurl": "^1.1.2",
